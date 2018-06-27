@@ -16,4 +16,5 @@
 hello <- function() {
   print("This is a test, This is only test!")
   cat("\nFUUUUUU!!!\n")
+  stop()
 }
