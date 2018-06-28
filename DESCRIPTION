@@ -12,8 +12,8 @@ Authors@R: c(
 Maintainer: Daniel Schuch <schuch@usp.br>
 Description: More about what it does (maybe more than one line)
     Use four spaces when indenting paragraphs within the Description.
-Depends: R (>= 3.4), sf
-Imports: ncdf4, units(>= 0.5-1)
+Depends: R (>= 3.4)
+Imports: sf, ncdf4, units(>= 0.5-1)
 Suggests: testthat, covr
 License: MIT + file LICENSE
 Encoding: UTF-8
