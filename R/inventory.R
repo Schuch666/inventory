@@ -94,10 +94,12 @@ inventory <- function(totals, variable = NA, t_unit = NA, verbose = T, plot = F,
 
         period <- 1 * units::as_units("year")
         taxa   <- total / period
-        outro$value  <- outro$value * taxa
+        outro  <- cbind(outro,outro$value * taxa)
+        names(outro)[k+2] <- variable
         if(plot)
           graphics::plot(outro["value"],axes = T, pal = sf.colors, ...)
         all_areas[[j]] <- outro
+        k <- 1
       }else{
         for(k in 1:length(variable)){
           variable_k <- variable[k]
