@@ -4,22 +4,23 @@
 \alias{set_total}
 \title{prepate data for inventoryes}
 \usage{
-set_total(geom, variable, var_name = NA, names = NA, unit = NA,
-  verbose = T)
+set_total(geom, values, variable, names = NA, m_unit = "t", verbose = T)
 }
 \arguments{
-\item{geom}{geo}
+\item{geom}{sf object describin the geometry of each area}
 
-\item{variable}{list}
+\item{values}{vector (for one variable) or list (for multiple variables) of total mass}
 
-\item{names}{names}
+\item{variable}{name(s) of the pollutant(s)}
 
-\item{unit}{unit, defoult is ton by year "t/year"}
+\item{names}{area names}
+
+\item{m_unit}{mass unit, defoult is "t" (ton)}
 
 \item{verbose}{display additional information}
 }
 \value{
-a sfc with the names, total of pollutants and geometry to make the inventory
+a sfc with the area shapes and the total emission for each area
 }
 \description{
 Organize inventory data
@@ -30,8 +31,14 @@ continents <- continents[1:5,]
 so2 <- read.csv(paste0(system.file("extdata",package="inventory"),"/SO2.csv"))
 names(so2) <- c("region","year","mass")
 so2 <- so2[so2$year == 2010,]
-totals <- set_total(geom     = continents,
-                    variable = so2$mass,
-                    names    = so2$region,
-                    var_name = "so2")
+# for a single pollutant
+so2_2010 <- set_total(geom     = continents,
+                      values   = so2$mass,
+                      names    = so2$region,
+                      variable = "so2")
+# for multiples pollutants, NO values is twice for ilustration
+so2_NO_2010 <- set_total(geom     = continents,
+                         values   = list(so2$mass,2 * so2$mass),
+                         names    = so2$region,
+                         variable = c("so2","NO"))
 }
