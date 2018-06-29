@@ -4,10 +4,14 @@
 #'
 #' @return a sfc with the grid geomatry and the emission by cell
 #'
-#'
-#' @param totals a output from set_total
+#' @param geoemiss a output from set_total
 #' @param variable name(s) of the pollutant(s)
 #' @param t_unit time unit, defoult is "year"
+#' @param res inventary resolution in degrees
+#' @param type global, local or custon inventary type
+#' @param lat latitude for custon inventory
+#' @param lon lontitude for custon inventory
+#' @param tol param passing to dist of sf::st_buffer
 #' @param verbose display additional information
 #' @param plot true for plot separate regions and final inventory
 #' @param ... aditional plot parameters
@@ -20,33 +24,60 @@
 #' @examples
 #' so2_no_2010 <- readRDS(paste0(system.file("extdata",package="inventory"),"/so2_no.Rds"))
 #' # inventory for multiples areas
-#' inventory_so2_2010 <- inventory(so2_no_2010[1:3,], plot = TRUE)
+#' inventory_so2_2010 <- griding(so2_no_2010[1:3,], plot = TRUE)
 #' # inventory for a single area and multiple pollutants
-#' inventory_so2_2010 <- inventory(so2_no_2010[1,], variable = c("so2","NO"), plot = TRUE)
+#' inventory_so2_2010 <- griding(so2_no_2010[1,], variable = c("so2","NO"), plot = TRUE)
 #' # inventory for multiple areas and pollutants
-#' inventory_so2_2010 <- inventory(so2_no_2010[1:2,], variable = c("so2","NO"), plot = TRUE)
+#' inventory_so2_2010 <- griding(so2_no_2010[1:2,], variable = c("so2","NO"), plot = TRUE)
 #'
 
-inventory <- function(totals, variable = NA, t_unit = NA, verbose = T, plot = F, ...){
-  lat                <- c(-90,90)
-  lon                <- c(-180,180)
-  world              <- sf::st_multipoint(x = matrix(c(lon,lat),2),dim = "XY")
-  grid               <- sf::st_make_grid(world, n = c(50,50))
-  sf::st_crs(grid)   <- sf::st_crs(totals)
+griding <- function(geoemiss, variable = NA,  t_unit = NA,
+                    res = 5, type = "global", lat = c(-90,90), lon = c(-180,180),
+                    tol = res * 0.00001, verbose = T, plot = F, ...){
+
+  if(type == "global"){
+    lat                <- c(-90,90)
+    lon                <- c(-180,180)
+    n_lat              <- as.integer((max(lat) - min(lat))/ res)
+    n_lon              <- as.integer((max(lon) - min(lon))/ res)
+    world              <- sf::st_multipoint(x = matrix(c(lon,lat),2),dim = "XY")
+    grid               <- sf::st_make_grid(world, n = c(n_lon,n_lat))
+    sf::st_crs(grid)   <- sf::st_crs(geoemiss)
+  }
+  if(type == "local"){
+    box                <- sf::st_bbox(geoemiss)
+    lat                <- c(box[[2]],box[[4]])
+    lon                <- c(box[[1]],box[[3]])
+    n_lat              <- as.integer((max(lat) - min(lat))/ res)
+    n_lon              <- as.integer((max(lon) - min(lon))/ res)
+    grid               <- sf::st_make_grid(geoemiss, n = c(n_lat,n_lon))
+    sf::st_crs(grid)   <- sf::st_crs(geoemiss)
+  }
+  if(type == "custom"){
+    if(length(lat) != 2)
+      stop("invalid lat")
+    if(length(lon) != 2)
+      stop("invalid lon")
+    n_lat              <- as.integer((max(lat) - min(lat))/ res)
+    n_lon              <- as.integer((max(lon) - min(lon))/ res)
+    world              <- sf::st_multipoint(x = matrix(c(lon,lat),2),dim = "XY")
+    grid               <- sf::st_make_grid(world, n = c(n_lat,n_lon))
+    sf::st_crs(grid)   <- sf::st_crs(geoemiss)
+  }
   # center             <- sf::st_make_grid(world, n = c(50,50),what = "centers")
-  # sf::st_crs(center) <- sf::st_crs(totals)
+  # sf::st_crs(center) <- sf::st_crs(geoemiss)
 
   all_areas <- list()
   if(is.na(variable[1])){
-    cat(paste("variable is NA, using:",colnames(totals)[2],"\n"))
-    variable <- colnames(totals)[2]
-    for(j in 1:nrow(totals)){
+    cat(paste("variable is NA, using:",colnames(geoemiss)[2],"\n"))
+    variable <- colnames(geoemiss)[2]
+    for(j in 1:nrow(geoemiss)){
       if(verbose)
-        cat(paste("processing",as.character(totals$region[j]),"area ...\n"))
-      test <- totals[j,]
+        cat(paste("processing",as.character(geoemiss$region[j]),"area ...\n"))
+      test <- geoemiss[j,]
       test$area <- sf::st_area(test)
       test <- test[-1]
-      test <- suppressWarnings( sf::st_interpolate_aw(st_buffer(test,dist = 0.0001),
+      test <- suppressWarnings( sf::st_interpolate_aw(st_buffer(test,dist = tol),
                                                       grid,extensive = T) )
       test$fraction <- units::drop_units(test$area / sum(test$area))
 
@@ -56,7 +87,7 @@ inventory <- function(totals, variable = NA, t_unit = NA, verbose = T, plot = F,
       for(i in 1:dim(test)[1]){
         outro$value[test$Id[i]] <- test$fraction[i]
       }
-      total <- sf::st_set_geometry(totals[j,2], NULL)[[1]]
+      total <- sf::st_set_geometry(geoemiss[j,2], NULL)[[1]]
       period <- 1 * units::as_units("year")
       taxa   <- total / period
       outro$value  <- outro$value * taxa
@@ -67,18 +98,18 @@ inventory <- function(totals, variable = NA, t_unit = NA, verbose = T, plot = F,
 
     soma       <- outro
     soma$value <- soma$value * 0.0
-    for(j in 1:nrow(totals))
+    for(j in 1:nrow(geoemiss))
       soma$value <- soma$value + all_areas[[j]]$value
     if(plot & j > 1)
       graphics::plot(soma["value"],axes = T, pal = sf.colors, ...)
   }else{
-    for(j in 1:nrow(totals)){
+    for(j in 1:nrow(geoemiss)){
       if(verbose)
-        cat(paste("processing",as.character(totals$region[j]),"area ...\n"))
-      test <- totals[j,]
+        cat(paste("processing",as.character(geoemiss$region[j]),"area ...\n"))
+      test <- geoemiss[j,]
       test$area <- sf::st_area(test)
       test <- test[-1]
-      test <- suppressWarnings( sf::st_interpolate_aw(st_buffer(test,dist = 0.0001),
+      test <- suppressWarnings( sf::st_interpolate_aw(st_buffer(test,dist = tol),
                                                       grid,extensive = T) )
       test$fraction <- units::drop_units(test$area / sum(test$area))
 
@@ -90,7 +121,7 @@ inventory <- function(totals, variable = NA, t_unit = NA, verbose = T, plot = F,
       }
 
       if(length(variable) == 1){
-        total <- sf::st_set_geometry(totals[j,variable], NULL)[[1]]
+        total <- sf::st_set_geometry(geoemiss[j,variable], NULL)[[1]]
 
         period <- 1 * units::as_units("year")
         taxa   <- total / period
@@ -103,7 +134,7 @@ inventory <- function(totals, variable = NA, t_unit = NA, verbose = T, plot = F,
       }else{
         for(k in 1:length(variable)){
           variable_k <- variable[k]
-          total      <- sf::st_set_geometry(totals[j,variable_k], NULL)[[1]]
+          total      <- sf::st_set_geometry(geoemiss[j,variable_k], NULL)[[1]]
 
           period <- 1 * units::as_units("year")
           taxa   <- total / period
@@ -117,7 +148,7 @@ inventory <- function(totals, variable = NA, t_unit = NA, verbose = T, plot = F,
     }
     soma       <- outro
     soma[,1:k + 2] = sf::st_set_geometry(soma[,1:k + 2],NULL) * 0.0
-    for(j in 1:nrow(totals)){
+    for(j in 1:nrow(geoemiss)){
        soma[,1:k + 2] <- sf::st_set_geometry(soma[,1:k + 2],NULL) +
                          sf::st_set_geometry(all_areas[[j]][,1:k + 2],NULL)
     }
@@ -129,7 +160,6 @@ inventory <- function(totals, variable = NA, t_unit = NA, verbose = T, plot = F,
     }
     return(soma)
   }
-
   names(soma) <- c("Id",variable,"geometry")
   return(soma[,-1])
 }

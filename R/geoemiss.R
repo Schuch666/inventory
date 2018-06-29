@@ -24,17 +24,17 @@
 #' names(so2) <- c("region","year","mass")
 #' so2 <- so2[so2$year == 2010,]
 #' # for a single pollutant
-#' so2_2010 <- set_total(geom     = continents,
-#'                       values   = so2$mass,
-#'                       names    = so2$region,
-#'                       variable = "so2")
-#' # for multiples pollutants, NO values is twice for ilustration
-#' so2_NO_2010 <- set_total(geom     = continents,
-#'                          values   = list(so2$mass,2 * so2$mass),
-#'                          names    = so2$region,
-#'                          variable = c("so2","NO"))
+#' so2_2010 <- geoemiss(geom     = continents,
+#'                      values   = so2$mass,
+#'                      names    = so2$region,
+#'                      variable = "so2")
+#' # for multiples pollutants, NO values is twice so2 emissions for exercice purpose
+#' so2_NO_2010 <- geoemiss(geom     = continents,
+#'                         values   = list(so2$mass,2 * so2$mass),
+#'                         names    = so2$region,
+#'                         variable = c("so2","NO"))
 
-set_total <- function(geom, values, variable, names = NA, m_unit = "t", verbose = T){
+geoemiss <- function(geom, values, variable, names = NA, m_unit = "t", verbose = T){
   if(!"sf" %in% class(geom))
     stop("class of geom must to be a sf")
   if(is.na(names[1])){
