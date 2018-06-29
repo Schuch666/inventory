@@ -27,14 +27,12 @@ a sfc with the grid geomatry and the emission by cell
 calculate a inventory
 }
 \examples{
-# multiples areas
-so2_2010   <- readRDS("C:/Users/Schuch/Desktop/test_inventarios/totals_01.Rds")
-inventory_so2_2010 <- inventory(so2_2010[1:2,], plot = TRUE)
-# multiple pollutants
-so2_no_2010   <- readRDS("C:/Users/Schuch/Desktop/test_inventarios/so2_no.Rds")
+so2_no_2010 <- readRDS(paste0(system.file("extdata",package="inventory"),"/so2_no.Rds"))
+# inventory for multiples areas
+inventory_so2_2010 <- inventory(so2_no_2010[1:3,], plot = TRUE)
+# inventory for a single area and multiple pollutants
 inventory_so2_2010 <- inventory(so2_no_2010[1,], variable = c("so2","NO"), plot = TRUE)
-# multiple areas and pollutants
-so2_no_2010   <- readRDS("C:/Users/Schuch/Desktop/test_inventarios/so2_no.Rds")
-inventory_so2_2010 <- inventory(so2_no_2010[1:3,], variable = c("so2","NO"), plot = TRUE)
+# inventory for multiple areas and pollutants
+inventory_so2_2010 <- inventory(so2_no_2010[1:2,], variable = c("so2","NO"), plot = TRUE)
 
 }
