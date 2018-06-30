@@ -50,7 +50,7 @@ griding <- function(geoemiss, variable = NA,  t_unit = NA,
     lon                <- c(box[[1]],box[[3]])
     n_lat              <- as.integer((max(lat) - min(lat))/ res)
     n_lon              <- as.integer((max(lon) - min(lon))/ res)
-    grid               <- sf::st_make_grid(geoemiss, n = c(n_lat,n_lon))
+    grid               <- sf::st_make_grid(geoemiss, n = c(n_lon,n_lat))
     sf::st_crs(grid)   <- sf::st_crs(geoemiss)
   }
   if(type == "custom"){
@@ -61,7 +61,7 @@ griding <- function(geoemiss, variable = NA,  t_unit = NA,
     n_lat              <- as.integer((max(lat) - min(lat))/ res)
     n_lon              <- as.integer((max(lon) - min(lon))/ res)
     world              <- sf::st_multipoint(x = matrix(c(lon,lat),2),dim = "XY")
-    grid               <- sf::st_make_grid(world, n = c(n_lat,n_lon))
+    grid               <- sf::st_make_grid(world, n = c(n_lon,n_lat))
     sf::st_crs(grid)   <- sf::st_crs(geoemiss)
   }
 

@@ -35,8 +35,14 @@ write_inventory <- function(gi,filename = NA,dates,variable,unit = NA,mw = 1,
   res    <- 1 / res^(1/2)
   n_lat  <- as.integer((max(lat) - min(lat))/ res)
   n_lon  <- as.integer((max(lon) - min(lon))/ res)
-  center             <- sf::st_make_grid(gi, n = c(n_lat,n_lon),what = "centers")
-  sf::st_crs(center) <- sf::st_crs(gi)
+  # center             <- sf::st_make_grid(gi, n = c(n_lon-1,n_lat-1),what = "centers")
+  # sf::st_crs(center) <- sf::st_crs(gi)
+  # for(i in 1:((n_lat-1) * (n_lon-1))){
+  #   center_lon[i] <- as.numeric(center[[i]])[1]
+  #   center_lat[i] <- as.numeric(center[[i]])[2]
+  # }
+  # Vlon <- unique(center_lon)
+  # Vlat <- unique(center_lat)
 
   d1 = as.Date(dates)
   d2 = as.Date('1850-01-01')
@@ -101,6 +107,18 @@ write_inventory <- function(gi,filename = NA,dates,variable,unit = NA,mw = 1,
     #                          prec = "integer",
     #                          compression = COMPRESS)
 
+    # WRF style
+    # XLONG <- ncdf4::ncvar_def(name = "XLONG",
+    #                           units = "",
+    #                           dim = list(lon,lat),
+    #                           prec = "float",
+    #                           compression = COMPRESS)
+    # XLAT <- ncdf4::ncvar_def(name = "XLAT" ,
+    #                          units = "",
+    #                          dim = list(lon,lat),
+    #                          prec = "float",
+    #                          compression = COMPRESS)
+
     for(i in 1:length(variable)){
       assign(variable[i],
              ncdf4::ncvar_def(name          = variable[i],
@@ -157,6 +175,22 @@ write_inventory <- function(gi,filename = NA,dates,variable,unit = NA,mw = 1,
                      varid = "lon",
                      attname = "comment",
                      attval = "center_of_cell")
+
+    # WRF style
+    # ncdf4::ncvar_put(inv_file,
+    #                  "XLONG",
+    #                  center_lon)
+    # ncdf4::ncatt_put(inv_file,
+    #                  varid = "XLONG",
+    #                  attname = "units",
+    #                  attval = "degree east")
+    # ncdf4::ncvar_put(inv_file,
+    #                  "XLAT",
+    #                  center_lat)
+    # ncdf4::ncatt_put(inv_file,
+    #                  varid = "XLAT",
+    #                  attname = "units",
+    #                  attval = "degree north")
 
     for(i in 1:length(variable)){
       ncdf4::ncvar_put(inv_file,
