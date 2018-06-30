@@ -27,7 +27,7 @@ write_inventory(gi, filename = NA, dates, variable, unit = NA, mw = 1,
 \item{verbose}{display additional information}
 }
 \description{
-Create a NetCDF file from a 'inventoty' output
+Create a NetCDF file from a 'inventoty' output and can add new variables to
 }
 \examples{
 grinded_so2 <- sf::read_sf("C:/Users/Schuch/Desktop/test_inventarios/grid_so2_new.gpkg")

@@ -64,8 +64,6 @@ griding <- function(geoemiss, variable = NA,  t_unit = NA,
     grid               <- sf::st_make_grid(world, n = c(n_lat,n_lon))
     sf::st_crs(grid)   <- sf::st_crs(geoemiss)
   }
-  # center             <- sf::st_make_grid(world, n = c(50,50),what = "centers")
-  # sf::st_crs(center) <- sf::st_crs(geoemiss)
 
   all_areas <- list()
   if(is.na(variable[1])){

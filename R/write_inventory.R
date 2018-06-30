@@ -1,6 +1,6 @@
 #' Save the inventory in NetCDF format
 #'
-#' @description Create a NetCDF file from a 'inventoty' output
+#' @description Create a NetCDF file from a 'inventoty' output and can add new variables to
 #'
 #' @param gi a output from inventory
 #' @param variable name(s) of the pollutant(s) to write
@@ -28,6 +28,20 @@
 write_inventory <- function(gi,filename = NA,dates,variable,unit = NA,mw = 1,
                             COMPRESS = NA, force_ncdf4 = F, verbose = T){
 
+  box    <- sf::st_bbox(gi)
+  lat    <- c(box[[2]],box[[4]])
+  lon    <- c(box[[1]],box[[3]])
+  res    <- dim(gi)[1] / (abs(lat[1]-lat[2])* abs(lon[1]-lon[2]))
+  res    <- 1 / res^(1/2)
+  n_lat  <- as.integer((max(lat) - min(lat))/ res)
+  n_lon  <- as.integer((max(lon) - min(lon))/ res)
+  center             <- sf::st_make_grid(gi, n = c(n_lat,n_lon),what = "centers")
+  sf::st_crs(center) <- sf::st_crs(gi)
+
+  d1 = as.Date(dates)
+  d2 = as.Date('1850-01-01')
+  n_datas = as.numeric(d1-d2)
+
   if(is.na(filename)){
     cat("file name ([enter] to choose a file):")
     filename <- readline()
@@ -39,18 +53,8 @@ write_inventory <- function(gi,filename = NA,dates,variable,unit = NA,mw = 1,
   }else{
     cat(paste("creating",filename,"\n"))
 
-    d1 = as.Date(dates)
-    d2 = as.Date('1850-01-01')
-    n_datas = as.numeric(d1-d2)
-
-    box    <- sf::st_bbox(gi)
-    lat    <- c(box[[2]],box[[4]])
-    lon    <- c(box[[1]],box[[3]])
-    res    <- dim(gi)[1] / (abs(lat[1] - lat[2])* abs(lon[1]-lon[2]))
-    res    <- 1 / res^(1/2)
-
-    zeros   <- array(rep(0,180 * 360 / res^2),
-                     c(360 / res,180 / res,length(n_datas)))
+    zeros   <- array(rep(0,abs(lon[1]-lon[2]) * abs(lat[1]-lat[2]) / res^2),
+                     c(n_lon,n_lat,length(n_datas)))
 
     Vlat <- seq(min(lat),max(lat),by = res)
     Vlon <- seq(min(lon),max(lon),by = res)
@@ -179,5 +183,44 @@ write_inventory <- function(gi,filename = NA,dates,variable,unit = NA,mw = 1,
     cat(paste("\nfile:",filename,"written successfully!\n"))
   }
 
+  inv <- ncdf4::nc_open(filename = filename,write = T)
+  for(i in 1:length(variable)){
+    if(variable[i] %in% names(inv$var)){
+      cat(paste("writing",variable[i],"\n"))
+      EMI <- array(0, dim = c(n_lon,n_lat,length(n_datas)))
+      EMI <- c(gi[[variable[i]]])
+      ncvar_put(inv, varid = variable[i],vals = EMI)
+    }else{
+      cat(paste("addining and writing",variable[i],"\n"))
+      dim_lat <- inv$dim[['lat']]
+      dim_lon <- inv$dim[['lon']]
+      dim_time <- inv$dim[['time']]
 
+      EMI <- array(0, dim = c(n_lon,n_lat,length(n_datas)))
+      EMI <- c(gi[[variable[i]]])
+
+      VAR <- ncdf4::ncvar_def(name          = variable[i],
+                              longname      = paste(variable[i],"emissions"),
+                              dim           = list(dim_lon,dim_lat,dim_time),
+                              units         = "kg m-2 s-1", # deparse_unit(gi)
+                              prec          = "float",
+                              compression   = COMPRESS)
+      inv <- ncdf4::ncvar_add(inv,VAR)
+      ncdf4::ncvar_put(inv, varid = variable[i],vals = EMI)
+      ncdf4::ncatt_put(inv,
+                       varid = variable[i],
+                       attname = "standard_name",
+                       attval = paste0("tendency_of_atmosphere_mass_of_",variable[i]))
+      ncdf4::ncatt_put(inv,
+                       varid = variable[i],
+                       attname = "molecular_weight",
+                       attval = mw)
+      ncdf4::ncatt_put(inv,
+                       varid = variable[i],
+                       attname = "molecular_weight_units",
+                       attval = "g mole-1")
+    }
+  }
+  ncdf4::nc_close(inv)
+  cat("done!\n")
 }
