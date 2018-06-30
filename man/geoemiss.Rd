@@ -2,7 +2,7 @@
 % Please edit documentation in R/geoemiss.R
 \name{geoemiss}
 \alias{geoemiss}
-\title{prepate data for inventoryes}
+\title{Prepate data for inventoryes}
 \usage{
 geoemiss(geom, values, variable, names = NA, m_unit = "t", verbose = T)
 }

@@ -2,6 +2,7 @@
 
 export(geoemiss)
 export(griding)
+export(metadata)
 export(write_inventory)
 import(ncdf4)
 import(sf)

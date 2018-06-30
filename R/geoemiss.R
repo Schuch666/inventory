@@ -1,9 +1,8 @@
-#' prepate data for inventoryes
+#' Prepate data for inventoryes
 #'
 #' @description Organize inventory data
 #'
 #' @return a sfc with the area shapes and the total emission for each area
-#'
 #'
 #' @param geom sf object describin the geometry of each area
 #' @param values vector (for one variable) or list (for multiple variables) of total mass
