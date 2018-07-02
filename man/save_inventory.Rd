@@ -30,8 +30,8 @@ save_inventory(gi, filename = NA, dates, variable, unit = NA, mw = 1,
 Create a NetCDF file from a 'inventoty' output and can add new variables to
 }
 \examples{
-grinded_so2 <- sf::read_sf("C:/Users/Schuch/Desktop/test_inventarios/grid_so2_new.gpkg")
-dir.create(file.path(tempdir(), "EMISS"))
-write_inventory(grinded_so2,filename = paste0(file.path(tempdir(), "EMISS"),"test.nc"),
+grinded_so2 <- sf::read_sf(paste0(system.file("extdata",package="inventory"),"/grid_so2.gpkg"))
+dir.create(file.path(tempdir(), "INV"))
+save_inventory(grinded_so2,filename = paste0(file.path(tempdir(), "INV"),"test.nc"),
                 variable = "so2", dates = '2010-01-01')
 }

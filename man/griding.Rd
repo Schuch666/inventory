@@ -2,7 +2,7 @@
 % Please edit documentation in R/griding.R
 \name{griding}
 \alias{griding}
-\title{Distribute emissions between areas and grids}
+\title{Distribute emissions into grids}
 \usage{
 griding(geoemiss, variable = NA, t_unit = NA, res = 5, type = "global",
   lat = c(-90, 90), lon = c(-180, 180), tol = res * 1e-05, verbose = T,
@@ -35,15 +35,22 @@ griding(geoemiss, variable = NA, t_unit = NA, res = 5, type = "global",
 a sfc with the grid geomatry and the emission by cell
 }
 \description{
-calculate a inventory
+calculate the inventory from a geoemiss ouput, there is 3 grid types:
+- global: cover all latitudes and longitudes
+- local: cover the latitudes and longitudes of the input data
+- custom: with custom limits
+
+res argument contol the resolution of the final grid, grids whith hight resolution take more
+time to calculate
+}
+\note{
+inventorys with multiple dates need to be combined with rbind function
 }
 \examples{
 so2_no_2010 <- readRDS(paste0(system.file("extdata",package="inventory"),"/so2_no.Rds"))
 # inventory for multiples areas
-inventory_so2_2010 <- griding(so2_no_2010[1:3,], plot = TRUE)
+inventory_so2_2010 <- griding(so2_no_2010[1:2,], plot = TRUE)
 # inventory for a single area and multiple pollutants
 inventory_so2_2010 <- griding(so2_no_2010[1,], variable = c("so2","NO"), plot = TRUE)
-# inventory for multiple areas and pollutants
-inventory_so2_2010 <- griding(so2_no_2010[1:2,], variable = c("so2","NO"), plot = TRUE)
 
 }

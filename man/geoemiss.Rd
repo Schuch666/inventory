@@ -2,7 +2,7 @@
 % Please edit documentation in R/geoemiss.R
 \name{geoemiss}
 \alias{geoemiss}
-\title{Prepate data for inventoryes}
+\title{Reune data for calculate the inventory}
 \usage{
 geoemiss(geom, values, variable, names = NA, m_unit = "t", verbose = T)
 }
@@ -23,7 +23,8 @@ geoemiss(geom, values, variable, names = NA, m_unit = "t", verbose = T)
 a sfc with the area shapes and the total emission for each area
 }
 \description{
-Organize inventory data
+create a sf object with the emission and the geographic area which this emission
+will be distributed.
 }
 \examples{
 continents <- sf::read_sf(paste0(system.file("extdata",package="inventory"),"/continent.shp"))

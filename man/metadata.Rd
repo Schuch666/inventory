@@ -24,5 +24,11 @@ metadata(filename = NA, variable = 0, attname = NA, action = "read",
 Read and write metadata information of a NetCDF inventoty file
 }
 \examples{
+nc <- paste0(system.file("extdata",package="inventory"),"/small.nc")
+metadata(nc)
+metadata(nc,attname = "Title")
+metadata(nc,variable = "?")
+metadata(nc,variable = "so2")
+metadata(nc,variable = "so2",attname = "long_name")
 
 }

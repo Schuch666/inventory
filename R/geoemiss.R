@@ -1,6 +1,7 @@
-#' Prepate data for inventoryes
+#' Reune data for calculate the inventory
 #'
-#' @description Organize inventory data
+#' @description create a sf object with the emission and the geographic area which this emission
+#' will be distributed.
 #'
 #' @return a sfc with the area shapes and the total emission for each area
 #'

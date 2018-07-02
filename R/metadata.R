@@ -15,6 +15,12 @@
 #' @export
 #'
 #' @examples
+#' nc <- paste0(system.file("extdata",package="inventory"),"/small.nc")
+#' metadata(nc)
+#' metadata(nc,attname = "Title")
+#' metadata(nc,variable = "?")
+#' metadata(nc,variable = "so2")
+#' metadata(nc,variable = "so2",attname = "long_name")
 #'
 
 metadata <- function(filename = NA,variable = 0, attname = NA, action="read", value=NA, verbose=F){
@@ -37,14 +43,14 @@ metadata <- function(filename = NA,variable = 0, attname = NA, action="read", va
 
   if(action == "read"){
     if(is.na(attname)){
-      ATR <- ncatt_get(meta,variable,attname,verbose=verbose )
+      ATR <- ncdf4::ncatt_get(meta,variable,attname,verbose=verbose)
       if(variable ==0)
         cat("global attributes:\n")
       else
-        cat(paste0("variable ",variable,"attritutes:\n"))
+        cat(paste0("variable ",variable," attritutes:\n"))
       cat(paste(names(ATR),sep = ","))
     }else{
-      ATR <- ncatt_get(meta,variable,attname,verbose=verbose )
+      ATR <- ncdf4::ncatt_get(meta,variable,attname,verbose=verbose)
       if(variable == 0)
         variable <- "global"
       cat(paste0(variable," attribute ",attname,":\n"))
@@ -56,7 +62,7 @@ metadata <- function(filename = NA,variable = 0, attname = NA, action="read", va
     if(is.na(value))
       stop("nothing to write")
     cat(paste("writing",value,"on attribute",attname,"of",variable,"at file",filename))
-    ncatt_put(meta,varid = variable,attname = attname,attval = value)
+    ncdf4::ncatt_put(meta,varid = variable,attname = attname,attval = value,verbose = verbose)
   }
 
   ncdf4::nc_close(meta)
