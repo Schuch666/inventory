@@ -13,7 +13,7 @@ Maintainer: Daniel Schuch <schuch@usp.br>
 Description: More about what it does (maybe more than one line)
     Use four spaces when indenting paragraphs within the Description.
 Depends: R (>= 3.4)
-Imports: sf, ncdf4, units(>= 0.5-1), utils
+Imports: sf, ncdf4, units(>= 0.5-1), raster, utils
 Suggests: testthat, covr
 License: MIT + file LICENSE
 Encoding: UTF-8

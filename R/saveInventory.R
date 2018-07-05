@@ -22,10 +22,10 @@
 #' @examples
 #' grinded_so2 <- sf::read_sf(paste0(system.file("extdata",package="inventory"),"/grid_so2.gpkg"))
 #' dir.create(file.path(tempdir(), "INV"))
-#' save_inventory(grinded_so2,filename = paste0(file.path(tempdir(), "INV"),"test.nc"),
+#' saveInventory(grinded_so2,filename = paste0(file.path(tempdir(), "INV"),"test.nc"),
 #'                 variable = "so2", dates = '2010-01-01')
 
-save_inventory <- function(gi,filename = NA,dates,variable,unit = NA,mw = 1,
+saveInventory <- function(gi,filename = NA,dates,variable,unit = NA,mw = 1,
                             COMPRESS = NA, force_ncdf4 = F, verbose = T){
 
   box    <- sf::st_bbox(gi)

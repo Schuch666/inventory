@@ -9,7 +9,7 @@ griding(geoemiss, variable = NA, t_unit = NA, res = 5, type = "global",
   plot = F, ...)
 }
 \arguments{
-\item{geoemiss}{a output from set_total}
+\item{geoemiss}{a output from geoemiss}
 
 \item{variable}{name(s) of the pollutant(s)}
 

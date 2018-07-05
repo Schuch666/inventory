@@ -12,7 +12,7 @@
 #'
 #' @return a sfc with the grid geomatry and the emission by cell
 #'
-#' @param geoemiss a output from set_total
+#' @param geoemiss a output from geoemiss
 #' @param variable name(s) of the pollutant(s)
 #' @param t_unit time unit, defoult is "year"
 #' @param res inventary resolution in degrees
