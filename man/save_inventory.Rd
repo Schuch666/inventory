@@ -8,11 +8,11 @@ save_inventory(gi, filename = NA, dates, variable, unit = NA, mw = 1,
   COMPRESS = NA, force_ncdf4 = F, verbose = T)
 }
 \arguments{
-\item{gi}{a output from inventory}
+\item{gi}{a output from inventory of battery (multiple times)}
 
 \item{filename}{name of the file}
 
-\item{dates}{date for the data}
+\item{dates}{date(s) for the data}
 
 \item{variable}{name(s) of the pollutant(s) to write}
 

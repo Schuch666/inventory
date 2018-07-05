@@ -2,10 +2,10 @@
 #'
 #' @description Create a NetCDF file from a 'inventoty' output and can add new variables to
 #'
-#' @param gi a output from inventory
+#' @param gi a output from inventory of battery (multiple times)
 #' @param variable name(s) of the pollutant(s) to write
 #' @param filename name of the file
-#' @param dates date for the data
+#' @param dates date(s) for the data
 #' @param unit inventory unit
 #' @param mw molecular weight
 #' @param force_ncdf4 force NetCDF4 format
@@ -31,7 +31,7 @@ save_inventory <- function(gi,filename = NA,dates,variable,unit = NA,mw = 1,
   box    <- sf::st_bbox(gi)
   lat    <- c(box[[2]],box[[4]])
   lon    <- c(box[[1]],box[[3]])
-  res    <- dim(gi)[1] / (abs(lat[1]-lat[2])* abs(lon[1]-lon[2]))
+  res    <- (dim(gi)[1]/length(dates)) / (abs(lat[1]-lat[2])* abs(lon[1]-lon[2]))
   res    <- 1 / res^(1/2)
   n_lat  <- as.integer((max(lat) - min(lat))/ res)
   n_lon  <- as.integer((max(lon) - min(lon))/ res)
@@ -59,11 +59,11 @@ save_inventory <- function(gi,filename = NA,dates,variable,unit = NA,mw = 1,
   }else{
     cat(paste("creating",filename,"\n"))
 
-    zeros   <- array(rep(0,abs(lon[1]-lon[2]) * abs(lat[1]-lat[2]) / res^2),
+    zeros   <- array(rep(0,length(n_datas) * abs(lon[1]-lon[2]) * abs(lat[1]-lat[2]) / res^2),
                      c(n_lon,n_lat,length(n_datas)))
 
-    Vlat <- seq(min(lat),max(lat),by = res)
-    Vlon <- seq(min(lon),max(lon),by = res)
+    Vlat <- seq(min(lat) + res/2, max(lat) - res/2, length.out = n_lat)
+    Vlon <- seq(min(lon) + res/2, max(lon) - res/2, length.out = n_lon)
 
     times   <- ncdf4::ncdim_def("time",
                                 longname = "time",
