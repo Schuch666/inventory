@@ -3,7 +3,7 @@
 
 Create NetCDF emission inventories.
 
-![hex_logo](https://raw.githubusercontent.com/Schuch666/inventory/master/example.jpg)
+![example](https://raw.githubusercontent.com/Schuch666/inventory/master/example.jpg)
 
 ## Installation
 
