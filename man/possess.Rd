@@ -19,8 +19,10 @@ possess(geoemiss, filename = NA, plots = T, verbose = T)
 extract values from a image to be used on each region
 }
 \examples{
-so2_no_2010 <- readRDS(paste0(system.file("extdata",package="inventory"),"/so2_no.Rds"))
-file <- paste(system.file("extdata", package = "EmissV"),"/dmsp.tiff",sep="")
-# a_raster <- possess(so2_no_2010,file)
-
+states <- sf::st_read(paste(system.file("extdata", package = "inventory"),"/states.shp",sep=""),
+                      quiet = TRUE)
+Nox    <- geoemiss(geom = states,variable = "Nox",names = c("sp","rj"),values = c(1000,200))
+image  <- paste(system.file("extdata", package = "inventory"),"/tiny.tif",sep="")
+ras    <- possess(Nox,image,plots = FALSE)
+test   <- griding(ras,variable = "Nox", res = 0.1, type = "local", plot = TRUE)
 }

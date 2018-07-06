@@ -26,6 +26,7 @@
 #'
 #' @import sf
 #' @import units
+#' @import raster
 #'
 #' @export
 #'
@@ -78,7 +79,10 @@ griding <- function(geoemiss, variable = NA,  t_unit = NA,
     for(j in 1:nrow(geoemiss)){
       if(verbose)
         cat(paste("processing",as.character(geoemiss$region[j]),"area ...\n"))
-      test <- geoemiss[j,]
+      if("image" %in% names(geoemiss))
+        test <- geoemiss[j,-ncol(geoemiss)]
+      else
+        test <- geoemiss[j,]
       test$area <- sf::st_area(test)
       test <- test[-1]
       test <- suppressWarnings( sf::st_interpolate_aw(st_buffer(test,dist = tol),
@@ -91,6 +95,23 @@ griding <- function(geoemiss, variable = NA,  t_unit = NA,
       for(i in 1:dim(test)[1]){
         outro$value[test$Id[i]] <- test$fraction[i]
       }
+
+      if("image" %in% names(geoemiss)){
+        box   <- raster::raster(nrows=n_lat,ncols=n_lon,
+                                xmn=lon[1],xmx=lon[2],ymn=lat[1],ymx=lat[2])
+        crs(box) <- raster::crs(sf::as_Spatial(geoemiss$geometry))
+        total_box <- raster::cellStats(geoemiss$image[[j]],"sum",na.rm=TRUE)
+
+        X    <- raster::resample(geoemiss$image[[j]],box,method = "bilinear")
+        X    <- raster::flip(X,2)
+        X    <- raster::t(X)
+        X    <- raster::as.matrix(X)
+        X[is.na(X)] <- 0
+        X    <- X * total_box/sum(X)
+
+        outro$value = outro$value * c(X)
+      }
+
       total <- sf::st_set_geometry(geoemiss[j,2], NULL)[[1]]
       period <- 1 * units::as_units("year")
       taxa   <- total / period
@@ -110,7 +131,10 @@ griding <- function(geoemiss, variable = NA,  t_unit = NA,
     for(j in 1:nrow(geoemiss)){
       if(verbose)
         cat(paste("processing",as.character(geoemiss$region[j]),"area ...\n"))
-      test <- geoemiss[j,]
+      if("image" %in% names(geoemiss))
+        test <- geoemiss[j,-ncol(geoemiss)]
+      else
+        test <- geoemiss[j,]
       test$area <- sf::st_area(test)
       test <- test[-1]
       test <- suppressWarnings( sf::st_interpolate_aw(st_buffer(test,dist = tol),
@@ -124,17 +148,33 @@ griding <- function(geoemiss, variable = NA,  t_unit = NA,
         outro$value[test$Id[i]] <- test$fraction[i]
       }
 
+      if("image" %in% names(geoemiss)){
+        box   <- raster::raster(nrows=n_lat,ncols=n_lon,
+                                xmn=lon[1],xmx=lon[2],ymn=lat[1],ymx=lat[2])
+        crs(box) <- raster::crs(sf::as_Spatial(geoemiss$geometry))
+        total_box <- raster::cellStats(geoemiss$image[[j]],"sum",na.rm=TRUE)
+
+        X    <- raster::resample(geoemiss$image[[j]],box,method = "bilinear")
+        X    <- raster::flip(X,2)
+        X    <- raster::t(X)
+        X    <- raster::as.matrix(X)
+        X[is.na(X)] <- 0
+        X    <- X * total_box/sum(X)
+
+        outro$value = outro$value * c(X)
+      }
+
       if(length(variable) == 1){
         total <- sf::st_set_geometry(geoemiss[j,variable], NULL)[[1]]
 
         period <- 1 * units::as_units("year")
         taxa   <- total / period
         outro  <- cbind(outro,outro$value * taxa)
+        k <- 1
         names(outro)[k+2] <- variable
         if(plot)
           graphics::plot(outro["value"],axes = T, pal = sf.colors, ...)
         all_areas[[j]] <- outro
-        k <- 1
       }else{
         for(k in 1:length(variable)){
           variable_k <- variable[k]
