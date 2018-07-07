@@ -13,9 +13,8 @@
 #' @export
 #'
 #' @examples
-#' states <- sf::st_read(paste(system.file("extdata", package = "inventory"),"/states.shp",sep=""),
-#'                       quiet = TRUE)
-#' Nox    <- geoemiss(geom = states,variable = "Nox",names = c("sp","rj"),values = c(1000,200))
+#' states <- sf::read_sf(paste(system.file("extdata", package = "inventory"),"/states.shp",sep=""))
+#' Nox    <- geoemiss(geom = states,variable = "Nox",names = c("sp","rj"),values = c(1000,20))
 #' image  <- paste(system.file("extdata", package = "inventory"),"/tiny.tif",sep="")
 #' ras    <- possess(Nox,image,plots = FALSE)
 #' test   <- griding(ras,variable = "Nox", res = 0.1, type = "local", plot = TRUE)

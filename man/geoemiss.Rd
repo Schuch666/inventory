@@ -4,7 +4,7 @@
 \alias{geoemiss}
 \title{Reune data for calculate the inventory}
 \usage{
-geoemiss(geom, values, variable, names = NA, m_unit = "t", verbose = T)
+geoemiss(geom, values, variable, names = NA, mass_unit = "t", verbose = T)
 }
 \arguments{
 \item{geom}{sf object describin the geometry of each area}
@@ -15,7 +15,7 @@ geoemiss(geom, values, variable, names = NA, m_unit = "t", verbose = T)
 
 \item{names}{area names}
 
-\item{m_unit}{mass unit, defoult is "t" (ton)}
+\item{mass_unit}{mass unit, defoult is "t" (ton)}
 
 \item{verbose}{display additional information}
 }

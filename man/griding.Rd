@@ -4,16 +4,16 @@
 \alias{griding}
 \title{Distribute emissions into grids}
 \usage{
-griding(geoemiss, variable = NA, t_unit = NA, res = 5, type = "global",
-  lat = c(-90, 90), lon = c(-180, 180), tol = res * 1e-05, verbose = T,
-  plot = F, ...)
+griding(geoemiss, variable = NA, area_unit = "km^2", res = 5,
+  type = "global", lat = c(-90, 90), lon = c(-180, 180), tol = res *
+  1e-05, verbose = T, plot = F, ...)
 }
 \arguments{
 \item{geoemiss}{a output from geoemiss}
 
 \item{variable}{name(s) of the pollutant(s)}
 
-\item{t_unit}{time unit, defoult is "year"}
+\item{area_unit}{area unit, defoult is "km^2"}
 
 \item{res}{inventary resolution in degrees}
 
@@ -48,9 +48,6 @@ inventorys with multiple dates need to be combined with rbind function
 }
 \examples{
 so2_no_2010 <- readRDS(paste0(system.file("extdata",package="inventory"),"/so2_no.Rds"))
-# inventory for multiples areas
-inventory_so2_2010 <- griding(so2_no_2010[1:2,], plot = TRUE)
-# inventory for a single area and multiple pollutants
-inventory_so2_2010 <- griding(so2_no_2010[1,], variable = c("so2","NO"), plot = TRUE)
+inventory_so2_2010 <- griding(so2_no_2010[5,], variable = c("so2","NO"), plot = TRUE)
 
 }

@@ -8,6 +8,7 @@
 #' @param dates date(s) for the data
 #' @param unit inventory unit
 #' @param mw molecular weight
+#' @param time_unit time unit, defoult is "year"
 #' @param force_ncdf4 force NetCDF4 format
 #' @param COMPRESS compression level from 1 to 9, or NA for no compression
 #' @param verbose display additional information
@@ -20,12 +21,12 @@
 #' @export
 #'
 #' @examples
-#' grinded_so2 <- sf::read_sf(paste0(system.file("extdata",package="inventory"),"/grid_so2.gpkg"))
+#' grinded_so2 <- readRDS(paste0(system.file("extdata",package="inventory"),"/grid_so2.Rds"))
 #' dir.create(file.path(tempdir(), "INV"))
 #' saveInventory(grinded_so2,filename = paste0(file.path(tempdir(), "INV"),"test.nc"),
 #'                 variable = "so2", dates = '2010-01-01')
 
-saveInventory <- function(gi,filename = NA,dates,variable,unit = NA,mw = 1,
+saveInventory <- function(gi,filename = NA,dates,variable,unit = NA,mw = 1, time_unit = "year",
                             COMPRESS = NA, force_ncdf4 = F, verbose = T){
 
   box    <- sf::st_bbox(gi)
@@ -47,6 +48,10 @@ saveInventory <- function(gi,filename = NA,dates,variable,unit = NA,mw = 1,
   d1 = as.Date(dates)
   d2 = as.Date('1850-01-01')
   n_datas = as.numeric(d1-d2)
+
+  period <- 1
+  units(period) <- set_units(period,time_unit,mode = "standard")
+  gi[,1:(length(gi)-1)] <- gi[,1:(length(gi)-1),drop = T] / period
 
   if(is.na(filename)){
     cat("file name ([enter] to choose a file):")
@@ -124,7 +129,7 @@ saveInventory <- function(gi,filename = NA,dates,variable,unit = NA,mw = 1,
              ncdf4::ncvar_def(name          = variable[i],
                               longname      = paste(variable[i],"emissions"),
                               dim           = list(lon,lat,times),
-                              units         = "kg m-2 s-1", # deparse_unit(gi)
+                              units         = deparse_unit(gi[,i,drop=T]), # "kg m-2 s-1"
                               prec          = "float",
                               compression   = COMPRESS))
     }

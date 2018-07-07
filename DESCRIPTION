@@ -1,7 +1,7 @@
 Package: inventory
 Type: Package
 Title: Create NetCDF emission inventories
-Version: 0.2.0
+Version: 0.3.0
 Authors@R: c(
   person(given = "Daniel",
          family = "Schuch",

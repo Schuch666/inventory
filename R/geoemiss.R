@@ -9,7 +9,7 @@
 #' @param values vector (for one variable) or list (for multiple variables) of total mass
 #' @param variable name(s) of the pollutant(s)
 #' @param names area names
-#' @param m_unit mass unit, defoult is "t" (ton)
+#' @param mass_unit mass unit, defoult is "t" (ton)
 #' @param verbose display additional information
 #'
 #' @import sf
@@ -34,7 +34,7 @@
 #'                         names    = so2$region,
 #'                         variable = c("so2","NO"))
 
-geoemiss <- function(geom, values, variable, names = NA, m_unit = "t", verbose = T){
+geoemiss <- function(geom, values, variable, names = NA, mass_unit = "t", verbose = T){
   if(!"sf" %in% class(geom))
     stop("class of geom must to be a sf")
   if(is.na(names[1])){
@@ -64,8 +64,8 @@ geoemiss <- function(geom, values, variable, names = NA, m_unit = "t", verbose =
     }else{
       values_n <- as.numeric(values)
     }
-    u     <- m_unit
-    df    <- cbind(df, units::set_units(values_n,"t"))
+    units(values_n) <- with(units::ud_units,mass_unit)
+    df    <- cbind(df, values_n)
   }
   df    <- st_sf(df,geometry = sf::st_geometry(geom))
 

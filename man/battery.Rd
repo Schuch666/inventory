@@ -17,6 +17,6 @@ battery(grid, variable = NA, verbose = TRUE)
 create stack of grinded emissions for record in a NetCDF file with multiple dates
 }
 \examples{
-grinded_so2 <- sf::read_sf(paste0(system.file("extdata",package="inventory"),"/grid_so2.gpkg"))
+grinded_so2 <- readRDS(paste0(system.file("extdata",package="inventory"),"/grid_so2.Rds"))
 two_times_grinded_so2 <- battery(list(a = grinded_so2, b = grinded_so2))
 }
