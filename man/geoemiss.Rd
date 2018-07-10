@@ -27,7 +27,8 @@ create a sf object with the emission and the geographic area which this emission
 will be distributed.
 }
 \examples{
-continents <- sf::read_sf(paste0(system.file("extdata",package="inventory"),"/continent.shp"))
+continents <- sf::st_read(paste0(system.file("extdata",package="inventory"),"/continent.shp"),
+                          quiet = TRUE)
 continents <- continents[1:5,]
 so2 <- read.csv(paste0(system.file("extdata",package="inventory"),"/SO2.csv"))
 names(so2) <- c("region","year","mass")
