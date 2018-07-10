@@ -16,7 +16,6 @@
 #' @import sf
 #' @import units
 #' @import ncdf4
-#' @importFrom utils choose.files
 #'
 #' @export
 #'
@@ -57,7 +56,7 @@ saveInventory <- function(gi,filename = NA,dates,variable,unit = NA,mw = 1, time
     cat("file name ([enter] to choose a file):")
     filename <- readline()
     if(filename == "")
-      filename <- choose.files()
+      filename <- file.choose()
   }
   if(file.exists(filename)){
     cat(paste("open",filename,"\n"))

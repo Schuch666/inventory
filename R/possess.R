@@ -9,7 +9,6 @@
 #'
 #' @import sf
 #' @import raster
-#' @importFrom utils choose.files
 #'
 #' @export
 #'
@@ -25,7 +24,7 @@
 possess <- function(geoemiss, filename = NA, plots = T,verbose = T){
   if(is.na(filename)){
     cat("choose a file:\n")
-    filename <- choose.files()
+    filename <- file.choose()
     cat(paste(filename,"\n"))
   }
 
