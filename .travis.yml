@@ -1,0 +1,26 @@
+language: r
+cache: packages
+r:
+  - release
+  #- devel
+  #- oldrel
+
+pandoc: false
+warnings_are_errors: false
+
+before_install:
+  - sudo add-apt-repository ppa:ubuntugis/ubuntugis-unstable --yes
+  - sudo apt-get --yes --force-yes update -qq
+  # units/udunits2 dependency:
+  - sudo apt-get install --yes libudunits2-dev
+  # sf dependencies:
+  - sudo apt-get install --yes libgdal-dev libgeos-dev libproj-dev
+  # netcdf
+  - sudo apt-get install --yes libnetcdf-dev netcdf-bin
+
+script:
+  - R CMD build .
+  - R CMD check *tar.gz
+
+after_success:
+- Rscript -e 'covr::codecov(quiet = FALSE)'
