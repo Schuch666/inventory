@@ -4,7 +4,7 @@ r:
   - release
   #- devel
   #- oldrel
-  
+
 pandoc: false
 warnings_are_errors: false
 
@@ -20,7 +20,7 @@ before_install:
 
 script:
   - R CMD build .
-- R CMD check *tar.gz
+  - R CMD check *tar.gz
 
-# after_success:
-# - Rscript -e 'covr::codecov()'
+after_success:
+  - Rscript -e 'covr::codecov()'
