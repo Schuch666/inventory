@@ -15,7 +15,8 @@ test_that("metadating NetCDfs", {
                 variable = "so2", dates = '2010-01-01')
 
   metadata(paste0(file.path(tempdir(), "INV2"),"test.nc"),
-           variable = "so2",attname = "new_attribute",value = "I'm Alive!",action = "w")
+           variable = "so2",attname = "new_attribute",
+           value = "I'm Alive!",action = "w")
 
   expect_equal(2 * 2, 4)
 })
