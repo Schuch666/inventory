@@ -8,6 +8,7 @@ r:
 r_packages:
 - devtools
 
+cache: packages
 pandoc: false
 warnings_are_errors: false
 
