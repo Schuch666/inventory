@@ -1,6 +1,6 @@
 #' Agrup sequencial emissions for record
 #'
-#' @description create stack of grinded emissions for record in a NetCDF file with multiple dates
+#' @description create stack of grinded emissions for record in a NetCDF file with multiple times (dates)
 #'
 #' @param grid list of ouputs from griding funcion
 #' @param variable name(s) of the pollutant(s)
@@ -13,9 +13,9 @@
 #'
 #' @examples
 #' grinded_so2 <- readRDS(paste0(system.file("extdata",package="inventory"),"/grid_so2.Rds"))
-#' two_times_grinded_so2 <- battery(list(a = grinded_so2, b = grinded_so2))
+#' two_times_grinded_so2 <- stacker(list(a = grinded_so2, b = grinded_so2))
 
-battery <- function(grid, variable = NA, verbose = TRUE){
+stacker <- function(grid, variable = NA, verbose = TRUE){
   if(is.list(grid)){
     if(!"sf" %in% class(grid[[1]]))
       stop("griding must be a list of griding outputs")  # nocov

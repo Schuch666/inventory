@@ -15,14 +15,14 @@
 #'
 #' @examples
 #' nc <- paste0(system.file("extdata",package="inventory"),"/small.nc")
-#' metadata(nc)
-#' metadata(nc,attname = "Title")
-#' metadata(nc,variable = "?")
-#' metadata(nc,variable = "so2")
-#' metadata(nc,variable = "so2",attname = "long_name")
+#' meta(nc)
+#' meta(nc,attname = "Title")
+#' meta(nc,variable = "?")
+#' meta(nc,variable = "so2")
+#' meta(nc,variable = "so2",attname = "long_name")
 #'
 
-metadata <- function(filename = NA,variable = 0, attname = NA, action="read", value=NA, verbose=F){
+meta <- function(filename = NA,variable = 0, attname = NA, action="read", value=NA, verbose=F){
   if(is.na(filename)){
     cat("choose a file:\n")     # nocov
       filename <- file.choose() # nocov
