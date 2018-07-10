@@ -24,7 +24,7 @@
 possess <- function(geoemiss, filename = NA, plots = T,verbose = T){
   if(is.na(filename)){
     cat("choose a file:\n")
-    filename <- utils::choose.files()
+    filename <- choose.files()
     cat(paste(filename,"\n"))
   }
 

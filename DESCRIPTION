@@ -12,7 +12,7 @@ Authors@R: c(
 Maintainer: Daniel Schuch <schuch@usp.br>
 Description: Tools for create grinded emissions inventories from global to local scale.
 Depends: R (>= 3.4)
-Imports: sf, ncdf4, units(>= 0.5-1), raster, utils, lwgeom, rgdal
+Imports: sf, ncdf4, units(>= 0.5-1), raster, lwgeom, rgdal
 Suggests: testthat, covr
 License: MIT + file LICENSE
 Encoding: UTF-8

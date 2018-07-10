@@ -26,7 +26,7 @@
 metadata <- function(filename = NA,variable = 0, attname = NA, action="read", value=NA, verbose=F){
   if(is.na(filename)){
     cat("choose a file:\n")
-      filename <- utils::choose.files()
+      filename <- choose.files()
     cat(paste(filename,"\n"))
   }
   if(action != "read")
