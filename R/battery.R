@@ -18,9 +18,9 @@
 battery <- function(grid, variable = NA, verbose = TRUE){
   if(is.list(grid)){
     if(!"sf" %in% class(grid[[1]]))
-      stop("griding must be a list of griding outputs")
+      stop("griding must be a list of griding outputs")  # nocov
   }else{
-    stop("griding must be a list")
+    stop("griding must be a list")                       # nocov
   }
 
   stack <- grid[[1]]

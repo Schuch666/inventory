@@ -23,9 +23,9 @@
 
 possess <- function(geoemiss, filename = NA, plots = T,verbose = T){
   if(is.na(filename)){
-    cat("choose a file:\n")
-    filename <- file.choose()
-    cat(paste(filename,"\n"))
+    cat("choose a file:\n")   # nocov
+    filename <- file.choose() # nocov
+    cat(paste(filename,"\n")) # nocov
   }
 
   r  <- crop(raster::raster(filename),sf::as_Spatial(geoemiss$geometry))
