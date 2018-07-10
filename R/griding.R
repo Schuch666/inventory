@@ -76,10 +76,11 @@ griding <- function(geoemiss, variable = NA, area_unit = "km^2", res = 5,
     for(j in 1:nrow(geoemiss)){
       if(verbose)
         cat(paste("processing",as.character(geoemiss$region[j]),"area ...\n"))
-      if("image" %in% names(geoemiss))
-        test <- geoemiss[j,-ncol(geoemiss)]
-      else
+      if("image" %in% names(geoemiss)){
+        test <- geoemiss[j,-ncol(geoemiss)] # nocov
+      }else{
         test <- geoemiss[j,]
+      }
 
       test$area <- sf::st_area(test)
       test <- test[-1]
@@ -114,7 +115,7 @@ griding <- function(geoemiss, variable = NA, area_unit = "km^2", res = 5,
         outro$value[test$Id[i]] <- test$fraction[i]
       }
 
-      if("image" %in% names(geoemiss)){
+      if("image" %in% names(geoemiss)){                                      # nocov start
         box   <- raster::raster(nrows=n_lat,ncols=n_lon,
                                 xmn=lon[1],xmx=lon[2],ymn=lat[1],ymx=lat[2])
         crs(box) <- raster::crs(sf::as_Spatial(geoemiss$geometry))
@@ -127,7 +128,7 @@ griding <- function(geoemiss, variable = NA, area_unit = "km^2", res = 5,
         X[is.na(X)] <- 0
         X    <- X * total_box/sum(X)
 
-        outro$value = outro$value * c(X)
+        outro$value = outro$value * c(X)                                     # nocov start
       }
 
       total <- sf::st_set_geometry(geoemiss[j,2], NULL)[[1]]
@@ -148,10 +149,11 @@ griding <- function(geoemiss, variable = NA, area_unit = "km^2", res = 5,
     for(j in 1:nrow(geoemiss)){
       if(verbose)
         cat(paste("processing",as.character(geoemiss$region[j]),"area ...\n"))
-      if("image" %in% names(geoemiss))
+      if("image" %in% names(geoemiss)){
         test <- geoemiss[j,-ncol(geoemiss)]
-      else
+      }else{
         test <- geoemiss[j,]
+      }
       test$area <- sf::st_area(test)
       test <- test[-1]
 

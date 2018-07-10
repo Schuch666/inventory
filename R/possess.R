@@ -37,7 +37,7 @@ possess <- function(geoemiss, filename = NA, plots = T,verbose = T){
     cro <- raster::mask(r,s[j])
     cro <- crop(cro,s[j])
     if(plots)
-      plot(cro,main =  paste(geoemiss$region[j]))
+      plot(cro,main =  paste(geoemiss$region[j])) # nocov
     l[[j]] <- cro
   }
 
