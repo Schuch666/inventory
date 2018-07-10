@@ -6,7 +6,9 @@ r:
   #- oldrel
 
 pandoc: false
-warnings_are_errors: true
+warnings_are_errors: false
+sudo: required
+dist: trusty
 
 before_install:
   - sudo add-apt-repository ppa:ubuntugis/ubuntugis-unstable --yes
