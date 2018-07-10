@@ -28,7 +28,7 @@ stacker <- function(grid, variable = NA, verbose = TRUE){
     stack <- rbind(stack,grid[[i]])
   }
   if(verbose)
-    cat(paste("battery of",i,"emissions"))
+    cat(paste("stack of",i,"emissions"))
 
   return(stack)
 }

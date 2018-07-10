@@ -233,9 +233,11 @@ griding <- function(geoemiss, variable = NA, area_unit = "km^2", res = 5,
                          sf::st_set_geometry(all_areas[[j]][,1:k + 2],NULL)
     }
     soma <- soma[,c(-1,-2)]
-    if(plot){
-      for(k in 1:length(variable)){                             # nocov
-        graphics::plot(soma[,k],axes = T, pal = sf.colors, ...) # nocov
+    if("image" %in% names(geoemiss)){
+      if(plot){                                                   # nocov
+        for(k in 1:length(variable)){                             # nocov
+          graphics::plot(soma[,k],axes = T, pal = sf.colors, ...) # nocov
+        }
       }
     }
     return(soma)
