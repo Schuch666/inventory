@@ -55,14 +55,11 @@ metadata <- function(filename = NA,variable = 0, attname = NA, action="read", va
       cat(paste0(variable," attribute ",attname,":\n"))
       cat(ATR$value)
     }
-  }
-
-  if(action == "write"){
+  }else{
     if(is.na(value))
       stop("nothing to write") # nocov
     cat(paste("writing",value,"on attribute",attname,"of",variable,"at file",filename))
     ncdf4::ncatt_put(meta,varid = variable,attname = attname,attval = value,verbose = verbose)
   }
-
   ncdf4::nc_close(meta)
 }
