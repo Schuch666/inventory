@@ -57,7 +57,7 @@ griding <- function(geoemiss, variable = NA, area_unit = "km^2", res = 5,
     grid               <- sf::st_make_grid(geoemiss, n = c(n_lon,n_lat))
     sf::st_crs(grid)   <- sf::st_crs(geoemiss)
   }
-  if(type == "custom"){
+  if(type == "custom"){                                  # nocov start
     if(length(lat) != 2)
       stop("invalid lat")
     if(length(lon) != 2)
@@ -67,7 +67,7 @@ griding <- function(geoemiss, variable = NA, area_unit = "km^2", res = 5,
     world              <- sf::st_multipoint(x = matrix(c(lon,lat),2),dim = "XY")
     grid               <- sf::st_make_grid(world, n = c(n_lon,n_lat))
     sf::st_crs(grid)   <- sf::st_crs(geoemiss)
-  }
+  }                                                      # nocov end
 
   all_areas <- list()
   if(is.na(variable[1])){
@@ -134,7 +134,7 @@ griding <- function(geoemiss, variable = NA, area_unit = "km^2", res = 5,
       taxa   <- total / area_total
       outro$value  <- outro$value * taxa
       if(plot)
-        graphics::plot(outro["value"],axes = T, pal = sf.colors, ...)
+        graphics::plot(outro["value"],axes = T, pal = sf.colors, ...) # nocov
       all_areas[[j]] <- outro
     }
 
@@ -143,7 +143,7 @@ griding <- function(geoemiss, variable = NA, area_unit = "km^2", res = 5,
     for(j in 1:nrow(geoemiss))
       soma$value <- soma$value + all_areas[[j]]$value
     if(plot & j > 1)
-      graphics::plot(soma["value"],axes = T, pal = sf.colors, ...)
+      graphics::plot(soma["value"],axes = T, pal = sf.colors, ...) # nocov
   }else{
     for(j in 1:nrow(geoemiss)){
       if(verbose)
@@ -209,7 +209,7 @@ griding <- function(geoemiss, variable = NA, area_unit = "km^2", res = 5,
         k <- 1
         names(outro)[k+2] <- variable
         if(plot)
-          graphics::plot(outro["value"],axes = T, pal = sf.colors, ...)
+          graphics::plot(outro["value"],axes = T, pal = sf.colors, ...) # nocov
         all_areas[[j]] <- outro
       }else{
         for(k in 1:length(variable)){
@@ -219,7 +219,7 @@ griding <- function(geoemiss, variable = NA, area_unit = "km^2", res = 5,
           outro  <- cbind(outro,outro$value * taxa)
           names(outro)[k+2] <- variable_k
           if(plot)
-            graphics::plot(outro[2+k],axes = T, pal = sf.colors, ...)
+            graphics::plot(outro[2+k],axes = T, pal = sf.colors, ...) # nocov
         }
         all_areas[[j]] <- outro
       }
@@ -232,8 +232,8 @@ griding <- function(geoemiss, variable = NA, area_unit = "km^2", res = 5,
     }
     soma <- soma[,c(-1,-2)]
     if(plot){
-      for(k in 1:length(variable)){
-        graphics::plot(soma[,k],axes = T, pal = sf.colors, ...)
+      for(k in 1:length(variable)){                             # nocov
+        graphics::plot(soma[,k],axes = T, pal = sf.colors, ...) # nocov
       }
     }
     return(soma)
