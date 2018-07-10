@@ -36,7 +36,7 @@
 #'                         variable = c("so2","NO"))
 
 geoemiss <- function(geom, values, variable, names = NA, mass_unit = "t", verbose = T){
-  if(!"sf" %in% class(geom))
+  if(!"sf" %in% class(geom))                                  # nocov start
     stop("class of geom must to be a sf")
   if(is.na(names[1])){
     if(length(values) != length(names))
@@ -50,10 +50,10 @@ geoemiss <- function(geom, values, variable, names = NA, mass_unit = "t", verbos
   }else{
     if(nrow(geom) != length(values))
       stop("values length must be the same nrow(geom)")
-  }
+  }                                                           # nocov end
 
   if(is.na(names[1])){
-    names <- paste("area",1:length(values))
+    names <- paste("area",1:length(values)) # nocov
   }
   df    <- data.frame(region   = as.character(names))
 
@@ -61,7 +61,7 @@ geoemiss <- function(geom, values, variable, names = NA, mass_unit = "t", verbos
     if(verbose)
       cat(paste("calculating",variable[i],"for",nrow(geom),"areas\n"))
     if(is.list(values)){
-      values_n <- as.numeric(values[[i]])
+      values_n <- as.numeric(values[[i]])   # nocov
     }else{
       values_n <- as.numeric(values)
     }
