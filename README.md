@@ -1,5 +1,5 @@
 # Inventory
-[![Travis-CI Build Status](https://travis-ci.org/Schuch666/inventory.svg?branch=master)](https://travis-ci.org/Schuch666/inventory) [![Licence:MIT](https://img.shields.io/github/license/hyperium/hyper.svg)](https://opensource.org/licenses/MIT)
+[![Travis-CI Build Status](https://travis-ci.org/Schuch666/inventory.svg?branch=master)](https://travis-ci.org/Schuch666/inventory) [![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/Schuch666/inventory?branch=master&svg=true)](https://ci.appveyor.com/project/Schuch666/inventory) [![Licence:MIT](https://img.shields.io/github/license/hyperium/hyper.svg)](https://opensource.org/licenses/MIT)
 
 Create NetCDF emission inventories.
 

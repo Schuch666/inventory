@@ -8,3 +8,4 @@
 ^MIT
 ^codecov\.yml$
 ^example.jpg
+^appveyor\.yml$
