@@ -8,9 +8,11 @@ r:
 r_packages:
 - devtools
 
-cache: packages
 pandoc: false
 warnings_are_errors: false
+
+install:
+- R -e 'devtools::install_deps(dep = T)'
 
 before_install:
   - sudo add-apt-repository ppa:ubuntugis/ubuntugis-unstable --yes
