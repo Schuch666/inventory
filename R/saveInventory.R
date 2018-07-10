@@ -53,10 +53,10 @@ saveInventory <- function(gi,filename = NA,dates,variable,unit = NA,mw = 1, time
   gi[,1:(length(gi)-1)] <- gi[,1:(length(gi)-1),drop = T] / period
 
   if(is.na(filename)){
-    cat("file name ([enter] to choose a file):")
-    filename <- readline()
-    if(filename == "")
-      filename <- file.choose()
+    cat("file name ([enter] to choose a file):") # nocov
+    filename <- readline()                       # nocov
+    if(filename == "")                           # nocov
+      filename <- file.choose()                  # nocov
   }
   if(file.exists(filename)){
     cat(paste("open",filename,"\n"))
@@ -240,7 +240,7 @@ saveInventory <- function(gi,filename = NA,dates,variable,unit = NA,mw = 1, time
       VAR <- ncdf4::ncvar_def(name          = variable[i],
                               longname      = paste(variable[i],"emissions"),
                               dim           = list(dim_lon,dim_lat,dim_time),
-                              units         = "kg m-2 s-1", # deparse_unit(gi)
+                              units         = deparse_unit(gi[,i,drop=T]), # "kg m-2 s-1"
                               prec          = "float",
                               compression   = COMPRESS)
       inv <- ncdf4::ncvar_add(inv,VAR)

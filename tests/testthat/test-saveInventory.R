@@ -7,6 +7,12 @@ test_that("saving the NetCDF", {
   saveInventory(grinded_so2,filename = paste0(file.path(tempdir(), "INV"),"test.nc"),
                 variable = "so2", dates = '2010-01-01')
 
+  grinded_no <- grinded_so2
+  names(grinded_no) <- c("NO","geometry")
+
+  saveInventory(grinded_no,filename = paste0(file.path(tempdir(), "INV"),"test.nc"),
+                variable = "NO", dates = '2010-01-01')
+
   netcdef <- ncdf4::nc_open(paste0(file.path(tempdir(), "INV"),"test.nc"))
   so2     <- ncdf4::ncvar_get(netcdef,"so2")
 
