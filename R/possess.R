@@ -9,6 +9,7 @@
 #'
 #' @import sf
 #' @import raster
+#' @importFrom utils choose.files
 #'
 #' @export
 #'
