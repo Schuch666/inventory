@@ -50,4 +50,4 @@ devtools::install_github("schuch666/inventory")
 
 #### License
 
-EmissV is published under the terms of the [MIT License](https://opensource.org/licenses/MIT). Copyright [(c)](https://raw.githubusercontent.com/atmoschem/emissv/master/LICENSE) 2018 Daniel Schuch.
+EmissV is published under the terms of the [MIT License](https://opensource.org/licenses/MIT). Copyright [(c)](https://raw.githubusercontent.com/Schuch666/inventory/master/LICENSE) 2018 Daniel Schuch.
