@@ -7,5 +7,7 @@
 ^LICENCE
 ^MIT
 ^codecov\.yml$
-^example.jpg
 ^appveyor\.yml$
+^DiagrammR.jpg
+^local.jpg
+^global.jpg
