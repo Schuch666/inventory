@@ -119,7 +119,3 @@ Detailed instructions can be found at [netcdf](https://www.unidata.ucar.edu/soft
 # install.packages("devtools")
 devtools::install_github("schuch666/inventory")
 ```
-
-#### License
-
-`inventory` is published under the terms of the [MIT License](https://opensource.org/licenses/MIT). Copyright [(c)](https://raw.githubusercontent.com/Schuch666/inventory/master/LICENSE) 2018 Daniel Schuch.
