@@ -1,5 +1,7 @@
 # Inventory
-[![Travis-CI Build Status](https://travis-ci.org/Schuch666/inventory.svg?branch=master)](https://travis-ci.org/Schuch666/inventory) [![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/Schuch666/inventory?branch=master&svg=true)](https://ci.appveyor.com/project/Schuch666/inventory) [![Coverage Status](https://img.shields.io/codecov/c/github/Schuch666/inventory/master.svg)](https://codecov.io/github/Schuch666/inventory?branch=master) [![Licence:MIT](https://img.shields.io/github/license/hyperium/hyper.svg)](https://opensource.org/licenses/MIT)
+[![Travis-CI Build Status](https://travis-ci.org/Schuch666/inventory.svg?branch=master)](https://travis-ci.org/Schuch666/inventory) [![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/Schuch666/inventory?branch=master&svg=true)](https://ci.appveyor.com/project/Schuch666/inventory) [![Coverage Status](https://img.shields.io/codecov/c/github/Schuch666/inventory/master.svg)](https://codecov.io/github/Schuch666/inventory?branch=master) [![Licence:MIT](https://img.shields.io/github/license/hyperium/hyper.svg)](https://opensource.org/licenses/MIT) [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.1315059.svg)](https://doi.org/10.5281/zenodo.1315059)
+
+
 
 A R-package for Modeling emission inventories from geographic data.
 
