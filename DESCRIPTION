@@ -1,6 +1,6 @@
 Package: inventory
 Type: Package
-Title: A R-package for Modeling emission inventories from geographic data
+Title: A R-package for modeling emission inventories from geographic data
 Version: 0.4.0
 Date: 2018-07-11
 Authors@R: c(
