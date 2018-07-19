@@ -1,7 +1,7 @@
 Package: inventory
 Type: Package
-Title: Create NetCDF emission inventories
-Version: 0.3.0
+Title: A R-package for Modeling emission inventories from geographic data
+Version: 0.4.0
 Date: 2018-07-11
 Authors@R: c(
   person(given = "Daniel",
@@ -11,7 +11,7 @@ Authors@R: c(
          comment = c(ORCID = "0000-0001-5977-4519"))
          )
 Maintainer: Daniel Schuch <schuch@usp.br>
-Description: Tools for create grinded emissions inventories from global to local scale.
+Description: Tools to create NetCDF-4 emissions inventories from global to local scale.
 Depends: R (>= 3.4)
 Imports: sf, ncdf4, units(>= 0.5-1), raster, lwgeom, rgdal
 Suggests: testthat, covr

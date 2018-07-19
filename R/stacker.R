@@ -1,8 +1,8 @@
-#' Agrup sequencial emissions for record
+#' Agroup sequencial emissions for record
 #'
-#' @description create stack of grinded emissions for record in a NetCDF file with multiple times (dates)
+#' @description Create a stack of grinded emissions for record in a NetCDF file with multiple times (dates)
 #'
-#' @param grid list of ouputs from griding funcion
+#' @param grid list of ouputs from griding function
 #' @param variable name(s) of the pollutant(s)
 #' @param verbose display additional information
 #'

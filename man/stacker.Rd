@@ -2,19 +2,19 @@
 % Please edit documentation in R/stacker.R
 \name{stacker}
 \alias{stacker}
-\title{Agrup sequencial emissions for record}
+\title{Agroup sequencial emissions for record}
 \usage{
 stacker(grid, variable = NA, verbose = TRUE)
 }
 \arguments{
-\item{grid}{list of ouputs from griding funcion}
+\item{grid}{list of ouputs from griding function}
 
 \item{variable}{name(s) of the pollutant(s)}
 
 \item{verbose}{display additional information}
 }
 \description{
-create stack of grinded emissions for record in a NetCDF file with multiple times (dates)
+Create a stack of grinded emissions for record in a NetCDF file with multiple times (dates)
 }
 \examples{
 grinded_so2 <- readRDS(paste0(system.file("extdata",package="inventory"),"/grid_so2.Rds"))

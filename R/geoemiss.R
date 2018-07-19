@@ -1,15 +1,15 @@
-#' Reune data for calculate the inventory
+#' Gather data for calculate the inventory
 #'
 #' @description create a sf object with the emission and the geographic area which this emission
 #' will be distributed.
 #'
 #' @return a sfc with the area shapes and the total emission for each area
 #'
-#' @param geom sf object describin the geometry of each area
+#' @param geom sf object describing the geometry of each area
 #' @param values vector (for one variable) or list (for multiple variables) of total mass
 #' @param variable name(s) of the pollutant(s)
 #' @param names area names
-#' @param mass_unit mass unit, defoult is "t" (ton)
+#' @param mass_unit mass unit, default is "t" (ton)
 #' @param verbose display additional information
 #'
 #' @import sf

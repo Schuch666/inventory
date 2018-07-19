@@ -13,26 +13,26 @@ griding(geoemiss, variable = NA, area_unit = "km^2", res = 5,
 
 \item{variable}{name(s) of the pollutant(s)}
 
-\item{area_unit}{area unit, defoult is "km^2"}
+\item{area_unit}{area unit, default is "km^2"}
 
-\item{res}{inventary resolution in degrees}
+\item{res}{inventory resolution in degrees}
 
-\item{type}{global, local or custon inventary type}
+\item{type}{global, local or custom inventary type}
 
-\item{lat}{latitude for custon inventory}
+\item{lat}{latitude for custom inventory}
 
-\item{lon}{lontitude for custon inventory}
+\item{lon}{lontitude for custom inventory}
 
 \item{tol}{param passing to dist of sf::st_buffer}
 
 \item{verbose}{display additional information}
 
-\item{plot}{true for plot separate regions and final inventory}
+\item{plot}{true for plot separate regions and the final inventory}
 
-\item{...}{aditional plot parameters}
+\item{...}{additional plot parameters}
 }
 \value{
-a sfc with the grid geomatry and the emission by cell
+a sfc with the grid geometry and the emission by cell
 }
 \description{
 calculate the inventory from a geoemiss ouput, there is 3 grid types:
@@ -40,11 +40,11 @@ calculate the inventory from a geoemiss ouput, there is 3 grid types:
 - local: cover the latitudes and longitudes of the input data
 - custom: with custom limits
 
-res argument contol the resolution of the final grid, grids whith hight resolution take more
+res argument controls the resolution of the final grid, grids whith higher resolution take more
 time to calculate
 }
 \note{
-inventorys with multiple dates need to be combined with rbind function
+inventories with multiple dates need to be combined with stacker function
 }
 \examples{
 so2_no_2010 <- readRDS(paste0(system.file("extdata",package="inventory"),"/so2_no.Rds"))

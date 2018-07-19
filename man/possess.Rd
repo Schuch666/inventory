@@ -7,7 +7,7 @@
 possess(geoemiss, filename = NA, plots = T, verbose = T)
 }
 \arguments{
-\item{geoemiss}{a output from geoemiss}
+\item{geoemiss}{an output from geoemiss}
 
 \item{filename}{image filename}
 

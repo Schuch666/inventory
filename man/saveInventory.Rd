@@ -8,7 +8,7 @@ saveInventory(gi, filename = NA, dates, variable, unit = NA, mw = 1,
   time_unit = "year", COMPRESS = NA, force_ncdf4 = F, verbose = T)
 }
 \arguments{
-\item{gi}{a output from inventory of battery (multiple times)}
+\item{gi}{an output from inventory of stacker (multiple times)}
 
 \item{filename}{name of the file}
 
@@ -20,7 +20,7 @@ saveInventory(gi, filename = NA, dates, variable, unit = NA, mw = 1,
 
 \item{mw}{molecular weight}
 
-\item{time_unit}{time unit, defoult is "year"}
+\item{time_unit}{time unit, default is "year"}
 
 \item{COMPRESS}{compression level from 1 to 9, or NA for no compression}
 
@@ -29,7 +29,7 @@ saveInventory(gi, filename = NA, dates, variable, unit = NA, mw = 1,
 \item{verbose}{display additional information}
 }
 \description{
-Create a NetCDF file from a 'inventoty' output and can add new variables to
+Create a NetCDF file from a inventory output or add new variables to an existing file
 }
 \examples{
 grinded_so2 <- readRDS(paste0(system.file("extdata",package="inventory"),"/grid_so2.Rds"))

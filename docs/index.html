@@ -5,12 +5,12 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Create NetCDF emission inventories • inventory</title>
+<title>A R-package for Modeling emission inventories from geographic data • inventory</title>
 <!-- jquery --><script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script><!-- Bootstrap --><link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script><!-- Font Awesome icons --><link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
 <!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script><!-- sticky kit --><script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script><!-- pkgdown --><link href="pkgdown.css" rel="stylesheet">
-<script src="pkgdown.js"></script><meta property="og:title" content="Create NetCDF emission inventories">
-<meta property="og:description" content="Tools for create grinded emissions inventories from global to local scale.">
+<script src="pkgdown.js"></script><meta property="og:title" content="A R-package for Modeling emission inventories from geographic data">
+<meta property="og:description" content="Tools to create NetCDF-4 emissions inventories from global to local scale.">
 <meta name="twitter:card" content="summary">
 <!-- mathjax --><script src="https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
@@ -29,7 +29,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">inventory</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.3.0</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.4.0</span>
       </span>
     </div>
 
@@ -60,40 +60,98 @@
 <div class="page-header"><h1 class="hasAnchor">
 <a href="#inventory" class="anchor"></a>Inventory</h1></div>
 
-<p>Create NetCDF emission inventories.</p>
-<p><img src="https://raw.githubusercontent.com/Schuch666/inventory/master/example.jpg" alt="example"></p>
+<p>A R-package for Modeling emission inventories from geographic data.</p>
+<p><img src="https://raw.githubusercontent.com/Schuch666/inventory/master/global.jpg" alt="Figure 1 - A global inventory."></p>
+<p><strong>Figure 1</strong> shows an example of inventory, this emission was generated with the code bellow:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="co"># load this package</span></a>
+<a class="sourceLine" id="cb1-2" data-line-number="2"><span class="kw">library</span>(inventory)</a>
+<a class="sourceLine" id="cb1-3" data-line-number="3"><span class="co"># open a shapefile and selecting the desired region</span></a>
+<a class="sourceLine" id="cb1-4" data-line-number="4">continents &lt;-<span class="st"> </span>sf<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/sf/topics/st_read">st_read</a></span>(<span class="kw">paste0</span>(<span class="kw">system.file</span>(<span class="st">"extdata"</span>,<span class="dt">package=</span><span class="st">"inventory"</span>),<span class="st">"/continent.shp"</span>))</a>
+<a class="sourceLine" id="cb1-5" data-line-number="5">continents &lt;-<span class="st"> </span>continents[<span class="op">-</span><span class="dv">8</span>,]</a>
+<a class="sourceLine" id="cb1-6" data-line-number="6"><span class="co"># open and selecting the emission data to be used in inventory</span></a>
+<a class="sourceLine" id="cb1-7" data-line-number="7">so2 &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="kw">paste0</span>(<span class="kw">system.file</span>(<span class="st">"extdata"</span>,<span class="dt">package=</span><span class="st">"inventory"</span>),<span class="st">"/SO2.csv"</span>))</a>
+<a class="sourceLine" id="cb1-8" data-line-number="8"><span class="kw">names</span>(so2) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">"region"</span>,<span class="st">"year"</span>,<span class="st">"mass"</span>)</a>
+<a class="sourceLine" id="cb1-9" data-line-number="9">so2 &lt;-<span class="st"> </span>so2[so2<span class="op">$</span>year <span class="op">==</span><span class="st"> </span><span class="dv">2010</span>,]</a>
+<a class="sourceLine" id="cb1-10" data-line-number="10">so2<span class="op">$</span>region &lt;-<span class="st"> </span><span class="kw">as.character</span>(so2<span class="op">$</span>region)</a>
+<a class="sourceLine" id="cb1-11" data-line-number="11"><span class="co"># add some arbitrary data</span></a>
+<a class="sourceLine" id="cb1-12" data-line-number="12">so2 &lt;-<span class="st"> </span><span class="kw">rbind</span>(so2,<span class="kw">c</span>(<span class="st">"Oceania"</span>,   <span class="dv">2010</span>,<span class="fl">0.0002</span> <span class="op">*</span><span class="st"> </span><span class="kw">as.numeric</span>(so2<span class="op">$</span>mass[<span class="dv">1</span>])))</a>
+<a class="sourceLine" id="cb1-13" data-line-number="13">so2 &lt;-<span class="st"> </span><span class="kw">rbind</span>(so2,<span class="kw">c</span>(<span class="st">"Australia"</span>, <span class="dv">2010</span>,<span class="fl">0.0200</span> <span class="op">*</span><span class="st"> </span><span class="kw">as.numeric</span>(so2<span class="op">$</span>mass[<span class="dv">1</span>])))</a>
+<a class="sourceLine" id="cb1-14" data-line-number="14">so2<span class="op">$</span>mass[<span class="dv">3</span>] &lt;-<span class="st"> </span><span class="kw">as.numeric</span>(so2<span class="op">$</span>mass[<span class="dv">3</span>]) <span class="op">/</span><span class="st"> </span><span class="dv">4</span></a>
+<a class="sourceLine" id="cb1-15" data-line-number="15"></a>
+<a class="sourceLine" id="cb1-16" data-line-number="16"><span class="co"># organize data for inventory</span></a>
+<a class="sourceLine" id="cb1-17" data-line-number="17">so2_<span class="dv">2010</span> &lt;-<span class="st"> </span><span class="kw"><a href="reference/geoemiss.html">geoemiss</a></span>(<span class="dt">geom     =</span> continents,</a>
+<a class="sourceLine" id="cb1-18" data-line-number="18">                     <span class="dt">values   =</span> so2<span class="op">$</span>mass,</a>
+<a class="sourceLine" id="cb1-19" data-line-number="19">                     <span class="dt">names    =</span> so2<span class="op">$</span>region,</a>
+<a class="sourceLine" id="cb1-20" data-line-number="20">                     <span class="dt">variable =</span> <span class="st">"so2"</span>)</a>
+<a class="sourceLine" id="cb1-21" data-line-number="21"></a>
+<a class="sourceLine" id="cb1-22" data-line-number="22"><span class="co"># make a global inventory of so2 with 2 degrees of resolution </span></a>
+<a class="sourceLine" id="cb1-23" data-line-number="23">inventory_res_<span class="dv">2</span> &lt;-<span class="st"> </span><span class="kw"><a href="reference/griding.html">griding</a></span>(so2_<span class="dv">2010</span>,<span class="st">"so2"</span>, <span class="dt">res =</span> <span class="dv">2</span>)</a>
+<a class="sourceLine" id="cb1-24" data-line-number="24"></a>
+<a class="sourceLine" id="cb1-25" data-line-number="25"><span class="co"># visualize the output</span></a>
+<a class="sourceLine" id="cb1-26" data-line-number="26"><span class="co"># install.packages("cptcity")</span></a>
+<a class="sourceLine" id="cb1-27" data-line-number="27"><span class="kw">library</span>(cptcity)</a>
+<a class="sourceLine" id="cb1-28" data-line-number="28"><span class="kw">plot</span>(inventory_res_<span class="dv">2</span>[<span class="st">"so2"</span>], <span class="dt">axes =</span> T, <span class="dt">pal =</span> <span class="kw">cpt</span>(<span class="dt">pal =</span> <span class="dv">920</span>,<span class="dt">colorRampPalette =</span> T))</a>
+<a class="sourceLine" id="cb1-29" data-line-number="29"></a>
+<a class="sourceLine" id="cb1-30" data-line-number="30"><span class="co"># to save the output in NetCDF-4 format (ask for the file name/location)</span></a>
+<a class="sourceLine" id="cb1-31" data-line-number="31"><span class="kw"><a href="reference/saveInventory.html">saveInventory</a></span>(inventory_res_<span class="dv">2</span>,<span class="dt">variable =</span> <span class="st">"so2"</span>,<span class="dt">dates =</span> <span class="st">'2010-01-01'</span>,<span class="dt">mw =</span> <span class="fl">64.066</span>)</a></code></pre></div>
+<p>The creation of the emissions follows 3 steps process: pre-processing the input data by <code><a href="reference/geoemiss.html">geoemiss()</a></code>, generate the grid and distribute the emission by the sum of interssections of grid and regions by <code>grinded()</code>, and save the output and metadata with <code><a href="reference/saveInventory.html">saveInventory()</a></code>. <strong>Figure 2</strong> shows a diagram of the prosses, the circles represents input and output files, the boxes represents functions, and the gray color are used in optional steps.</p>
+<p><img src="https://raw.githubusercontent.com/Schuch666/inventory/master/diagram.jpg" alt="Figure 2 - Diagram"></p>
+<p><strong>Figure 2</strong> includes 3 additional prosses that can be apply to the inventory:</p>
+<ul>
+<li>The use of an additional layer with a georeferenced immage to improve the distribution inside big flat areas using the <code><a href="reference/possess.html">possess()</a></code> function;</li>
+<li>A way to stack many times to record in one output file with the function <code><a href="reference/stacker.html">stacker()</a></code>;</li>
+<li>A way to read and write metada to the final NetCDF file with the function <code><a href="reference/meta.html">meta()</a></code>.</li>
+</ul>
+<p><strong>Figure 2</strong> shows a example of local inventory for two Brazilian states (São Paulo and Rio de Janeiro) using a additional image layer of a image of the DPDT program.</p>
+<p><img src="https://raw.githubusercontent.com/Schuch666/inventory/master/local.jpg" alt="Figure 3 - A local inventory with image layer."></p>
+<p>generated by the code bellow:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="kw">library</span>(inventory)</a>
+<a class="sourceLine" id="cb2-2" data-line-number="2"><span class="co"># read a shapefile with shapes of the 2 states</span></a>
+<a class="sourceLine" id="cb2-3" data-line-number="3">states &lt;-<span class="st"> </span>sf<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/sf/topics/st_read">st_read</a></span>(<span class="kw">paste</span>(<span class="kw">system.file</span>(<span class="st">"extdata"</span>, <span class="dt">package =</span> <span class="st">"inventory"</span>),<span class="st">"/states.shp"</span>,<span class="dt">sep=</span><span class="st">""</span>))</a>
+<a class="sourceLine" id="cb2-4" data-line-number="4"><span class="co"># processes the input data</span></a>
+<a class="sourceLine" id="cb2-5" data-line-number="5">Nox    &lt;-<span class="st"> </span><span class="kw"><a href="reference/geoemiss.html">geoemiss</a></span>(<span class="dt">geom =</span> states,<span class="dt">variable =</span> <span class="st">"Nox"</span>,<span class="dt">names =</span> <span class="kw">c</span>(<span class="st">"sp"</span>,<span class="st">"rj"</span>),<span class="dt">values =</span> <span class="kw">c</span>(<span class="dv">1000</span>,<span class="dv">25</span>))</a>
+<a class="sourceLine" id="cb2-6" data-line-number="6"><span class="co"># file name for this example</span></a>
+<a class="sourceLine" id="cb2-7" data-line-number="7">image  &lt;-<span class="st"> </span><span class="kw">paste</span>(<span class="kw">system.file</span>(<span class="st">"extdata"</span>, <span class="dt">package =</span> <span class="st">"inventory"</span>),<span class="st">"/tiny.tif"</span>,<span class="dt">sep=</span><span class="st">""</span>)</a>
+<a class="sourceLine" id="cb2-8" data-line-number="8"><span class="co"># read and process the image</span></a>
+<a class="sourceLine" id="cb2-9" data-line-number="9">ras    &lt;-<span class="st"> </span><span class="kw"><a href="reference/possess.html">possess</a></span>(Nox,image,<span class="dt">plots =</span> F)</a>
+<a class="sourceLine" id="cb2-10" data-line-number="10"><span class="co"># calculate the local inventory with 0.1 of resolution </span></a>
+<a class="sourceLine" id="cb2-11" data-line-number="11">local  &lt;-<span class="st"> </span><span class="kw"><a href="reference/griding.html">griding</a></span>(ras,<span class="dt">variable =</span> <span class="st">"Nox"</span>, <span class="dt">res =</span> <span class="fl">0.1</span>, <span class="dt">type =</span> <span class="st">"local"</span>, <span class="dt">plot =</span> F)</a>
+<a class="sourceLine" id="cb2-12" data-line-number="12"><span class="co"># visualize</span></a>
+<a class="sourceLine" id="cb2-13" data-line-number="13"><span class="co"># install.packages("cptcity")</span></a>
+<a class="sourceLine" id="cb2-14" data-line-number="14"><span class="kw">library</span>(cptcity)</a>
+<a class="sourceLine" id="cb2-15" data-line-number="15"><span class="kw">plot</span>(local[<span class="st">"Nox"</span>], <span class="dt">axes =</span> T,<span class="dt">pal =</span> <span class="kw">cpt</span>(<span class="dt">pal =</span> <span class="dv">6101</span>,<span class="dt">colorRampPalette =</span> T))</a></code></pre></div>
 <div id="installation" class="section level2">
 <h2 class="hasAnchor">
 <a href="#installation" class="anchor"></a>Installation</h2>
 <div id="system-dependencies" class="section level3">
 <h3 class="hasAnchor">
 <a href="#system-dependencies" class="anchor"></a>System dependencies</h3>
-<p><code>inventory</code> import functions from <a href="http://cran.r-project.org/package=ncdf4">ncdf4</a> for reading model information, <a href="http://cran.r-project.org/package=raster">raster</a> and <a href="https://cran.r-project.org/web/packages/sf/index.html">sf</a> to process grinded/geographic information and <a href="https://github.com/edzer/units/">units</a>. These packages need some aditional libraries:</p>
+<p><code>inventory</code> import functions from <a href="http://cran.r-project.org/package=ncdf4">ncdf4</a> for reading model information, <a href="http://cran.r-project.org/package=raster">raster</a> and <a href="https://cran.r-project.org/web/packages/sf/index.html">sf</a> to process grinded/geographic information and <a href="https://github.com/edzer/units/">units</a>. These packages need some additional libraries:</p>
 </div>
 <div id="to-ubuntu" class="section level3">
 <h3 class="hasAnchor">
 <a href="#to-ubuntu" class="anchor"></a>To Ubuntu</h3>
 <p>The following steps are required for installation on Ubuntu:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb1-1" data-line-number="1">  <span class="fu">sudo</span> add-apt-repository ppa:ubuntugis/ubuntugis-unstable --yes</a>
-<a class="sourceLine" id="cb1-2" data-line-number="2">  <span class="fu">sudo</span> apt-get --yes --force-yes update -qq</a>
-<a class="sourceLine" id="cb1-3" data-line-number="3">  <span class="co"># netcdf dependencies:</span></a>
-<a class="sourceLine" id="cb1-4" data-line-number="4">  <span class="fu">sudo</span> apt-get install --yes libnetcdf-dev netcdf-bin</a>
-<a class="sourceLine" id="cb1-5" data-line-number="5">  <span class="co"># units/udunits2 dependency:</span></a>
-<a class="sourceLine" id="cb1-6" data-line-number="6">  <span class="fu">sudo</span> apt-get install --yes libudunits2-dev</a>
-<a class="sourceLine" id="cb1-7" data-line-number="7">  <span class="co"># sf dependencies (without libudunits2-dev):</span></a>
-<a class="sourceLine" id="cb1-8" data-line-number="8">  <span class="fu">sudo</span> apt-get install --yes libgdal-dev libgeos-dev libproj-dev</a></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb3-1" data-line-number="1">  <span class="fu">sudo</span> add-apt-repository ppa:ubuntugis/ubuntugis-unstable --yes</a>
+<a class="sourceLine" id="cb3-2" data-line-number="2">  <span class="fu">sudo</span> apt-get --yes --force-yes update -qq</a>
+<a class="sourceLine" id="cb3-3" data-line-number="3">  <span class="co"># netcdf dependencies:</span></a>
+<a class="sourceLine" id="cb3-4" data-line-number="4">  <span class="fu">sudo</span> apt-get install --yes libnetcdf-dev netcdf-bin</a>
+<a class="sourceLine" id="cb3-5" data-line-number="5">  <span class="co"># units/udunits2 dependency:</span></a>
+<a class="sourceLine" id="cb3-6" data-line-number="6">  <span class="fu">sudo</span> apt-get install --yes libudunits2-dev</a>
+<a class="sourceLine" id="cb3-7" data-line-number="7">  <span class="co"># sf dependencies (without libudunits2-dev):</span></a>
+<a class="sourceLine" id="cb3-8" data-line-number="8">  <span class="fu">sudo</span> apt-get install --yes libgdal-dev libgeos-dev libproj-dev</a></code></pre></div>
 </div>
 <div id="to-fedora" class="section level3">
 <h3 class="hasAnchor">
 <a href="#to-fedora" class="anchor"></a>To Fedora</h3>
 <p>The following steps are required for installation on Fedora:</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb2-1" data-line-number="1">  <span class="fu">sudo</span> dnf update</a>
-<a class="sourceLine" id="cb2-2" data-line-number="2">  <span class="co"># netcdf dependencies:</span></a>
-<a class="sourceLine" id="cb2-3" data-line-number="3">  <span class="fu">sudo</span> yum install netcdf-devel</a>
-<a class="sourceLine" id="cb2-4" data-line-number="4">  <span class="co"># units/udunits2 dependency:</span></a>
-<a class="sourceLine" id="cb2-5" data-line-number="5">  <span class="fu">sudo</span> yum install udunits2-devel</a>
-<a class="sourceLine" id="cb2-6" data-line-number="6">  <span class="co"># sf dependencies (without libudunits2-dev):</span></a>
-<a class="sourceLine" id="cb2-7" data-line-number="7">  <span class="fu">sudo</span> yum install gdal-devel proj-devel proj-epsg proj-nad geos-devel</a></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb4-1" data-line-number="1">  <span class="fu">sudo</span> dnf update</a>
+<a class="sourceLine" id="cb4-2" data-line-number="2">  <span class="co"># netcdf dependencies:</span></a>
+<a class="sourceLine" id="cb4-3" data-line-number="3">  <span class="fu">sudo</span> yum install netcdf-devel</a>
+<a class="sourceLine" id="cb4-4" data-line-number="4">  <span class="co"># units/udunits2 dependency:</span></a>
+<a class="sourceLine" id="cb4-5" data-line-number="5">  <span class="fu">sudo</span> yum install udunits2-devel</a>
+<a class="sourceLine" id="cb4-6" data-line-number="6">  <span class="co"># sf dependencies (without libudunits2-dev):</span></a>
+<a class="sourceLine" id="cb4-7" data-line-number="7">  <span class="fu">sudo</span> yum install gdal-devel proj-devel proj-epsg proj-nad geos-devel</a></code></pre></div>
 </div>
 <div id="to-windows" class="section level3">
 <h3 class="hasAnchor">
@@ -104,12 +162,12 @@
 <div id="package-installation" class="section level3">
 <h3 class="hasAnchor">
 <a href="#package-installation" class="anchor"></a>Package installation</h3>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="co"># install.packages("devtools")</span></a>
-<a class="sourceLine" id="cb3-2" data-line-number="2">devtools<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/devtools/topics/install_github">install_github</a></span>(<span class="st">"schuch666/inventory"</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1"><span class="co"># install.packages("devtools")</span></a>
+<a class="sourceLine" id="cb5-2" data-line-number="2">devtools<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/devtools/topics/install_github">install_github</a></span>(<span class="st">"schuch666/inventory"</span>)</a></code></pre></div>
 <div id="license" class="section level4">
 <h4 class="hasAnchor">
 <a href="#license" class="anchor"></a>License</h4>
-<p>EmissV is published under the terms of the <a href="https://opensource.org/licenses/MIT">MIT License</a>. Copyright <a href="https://raw.githubusercontent.com/Schuch666/inventory/master/LICENSE">(c)</a> 2018 Daniel Schuch.</p>
+<p><code>inventory</code> is published under the terms of the <a href="https://opensource.org/licenses/MIT">MIT License</a>. Copyright <a href="https://raw.githubusercontent.com/Schuch666/inventory/master/LICENSE">(c)</a> 2018 Daniel Schuch.</p>
 </div>
 </div>
 </div>

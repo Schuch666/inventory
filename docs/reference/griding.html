@@ -36,7 +36,7 @@
 - global: cover all latitudes and longitudes
 - local: cover the latitudes and longitudes of the input data
 - custom: with custom limits
-res argument contol the resolution of the final grid, grids whith hight resolution take more
+res argument controls the resolution of the final grid, grids whith higher resolution take more
 time to calculate" />
 <meta name="twitter:card" content="summary" />
 
@@ -66,7 +66,7 @@ time to calculate" />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">inventory</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.3.0</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.4.0</span>
       </span>
     </div>
 
@@ -108,7 +108,7 @@ time to calculate" />
 - global: cover all latitudes and longitudes
 - local: cover the latitudes and longitudes of the input data
 - custom: with custom limits</p>
-<p>res argument contol the resolution of the final grid, grids whith hight resolution take more
+<p>res argument controls the resolution of the final grid, grids whith higher resolution take more
 time to calculate</p>
     
     </div>
@@ -130,23 +130,23 @@ time to calculate</p>
     </tr>
     <tr>
       <th>area_unit</th>
-      <td><p>area unit, defoult is "km^2"</p></td>
+      <td><p>area unit, default is "km^2"</p></td>
     </tr>
     <tr>
       <th>res</th>
-      <td><p>inventary resolution in degrees</p></td>
+      <td><p>inventory resolution in degrees</p></td>
     </tr>
     <tr>
       <th>type</th>
-      <td><p>global, local or custon inventary type</p></td>
+      <td><p>global, local or custom inventary type</p></td>
     </tr>
     <tr>
       <th>lat</th>
-      <td><p>latitude for custon inventory</p></td>
+      <td><p>latitude for custom inventory</p></td>
     </tr>
     <tr>
       <th>lon</th>
-      <td><p>lontitude for custon inventory</p></td>
+      <td><p>lontitude for custom inventory</p></td>
     </tr>
     <tr>
       <th>tol</th>
@@ -158,21 +158,21 @@ time to calculate</p>
     </tr>
     <tr>
       <th>plot</th>
-      <td><p>true for plot separate regions and final inventory</p></td>
+      <td><p>true for plot separate regions and the final inventory</p></td>
     </tr>
     <tr>
       <th>...</th>
-      <td><p>aditional plot parameters</p></td>
+      <td><p>additional plot parameters</p></td>
     </tr>
     </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>a sfc with the grid geomatry and the emission by cell</p>
+    <p>a sfc with the grid geometry and the emission by cell</p>
     
     <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
 
-    <p>inventorys with multiple dates need to be combined with rbind function</p>
+    <p>inventories with multiple dates need to be combined with stacker function</p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>

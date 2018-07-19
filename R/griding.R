@@ -5,24 +5,24 @@
 #' - local: cover the latitudes and longitudes of the input data
 #' - custom: with custom limits
 #'
-#' res argument contol the resolution of the final grid, grids whith hight resolution take more
+#' res argument controls the resolution of the final grid, grids whith higher resolution take more
 #' time to calculate
 #'
-#' @note inventorys with multiple dates need to be combined with rbind function
+#' @note inventories with multiple dates need to be combined with stacker function
 #'
-#' @return a sfc with the grid geomatry and the emission by cell
+#' @return a sfc with the grid geometry and the emission by cell
 #'
 #' @param geoemiss a output from geoemiss
 #' @param variable name(s) of the pollutant(s)
-#' @param area_unit area unit, defoult is "km^2"
-#' @param res inventary resolution in degrees
-#' @param type global, local or custon inventary type
-#' @param lat latitude for custon inventory
-#' @param lon lontitude for custon inventory
+#' @param area_unit area unit, default is "km^2"
+#' @param res inventory resolution in degrees
+#' @param type global, local or custom inventary type
+#' @param lat latitude for custom inventory
+#' @param lon lontitude for custom inventory
 #' @param tol param passing to dist of sf::st_buffer
 #' @param verbose display additional information
-#' @param plot true for plot separate regions and final inventory
-#' @param ... aditional plot parameters
+#' @param plot true for plot separate regions and the final inventory
+#' @param ... additional plot parameters
 #'
 #' @import sf
 #' @import units

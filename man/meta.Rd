@@ -21,7 +21,7 @@ meta(filename = NA, variable = 0, attname = NA, action = "read",
 \item{verbose}{display additional information}
 }
 \description{
-Read and write metadata information of a NetCDF inventoty file
+Read and write metadata information of a NetCDF inventory file
 }
 \examples{
 nc <- paste0(system.file("extdata",package="inventory"),"/small.nc")

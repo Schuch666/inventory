@@ -1,14 +1,14 @@
 #' Save the inventory in NetCDF format
 #'
-#' @description Create a NetCDF file from a 'inventoty' output and can add new variables to
+#' @description Create a NetCDF file from a inventory output or add new variables to an existing file
 #'
-#' @param gi a output from inventory of battery (multiple times)
+#' @param gi an output from inventory of stacker (multiple times)
 #' @param variable name(s) of the pollutant(s) to write
 #' @param filename name of the file
 #' @param dates date(s) for the data
 #' @param unit inventory unit
 #' @param mw molecular weight
-#' @param time_unit time unit, defoult is "year"
+#' @param time_unit time unit, default is "year"
 #' @param force_ncdf4 force NetCDF4 format
 #' @param COMPRESS compression level from 1 to 9, or NA for no compression
 #' @param verbose display additional information

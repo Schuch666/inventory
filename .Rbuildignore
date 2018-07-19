@@ -8,6 +8,6 @@
 ^MIT
 ^codecov\.yml$
 ^appveyor\.yml$
-^DiagrammR.jpg
+^diagram.jpg
 ^local.jpg
 ^global.jpg

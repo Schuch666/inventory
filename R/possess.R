@@ -2,7 +2,7 @@
 #'
 #' @description extract values from a image to be used on each region
 #'
-#' @param geoemiss a output from geoemiss
+#' @param geoemiss an output from geoemiss
 #' @param filename image filename
 #' @param plots plot individual regions
 #' @param verbose display additional information

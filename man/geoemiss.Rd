@@ -2,12 +2,12 @@
 % Please edit documentation in R/geoemiss.R
 \name{geoemiss}
 \alias{geoemiss}
-\title{Reune data for calculate the inventory}
+\title{Gather data for calculate the inventory}
 \usage{
 geoemiss(geom, values, variable, names = NA, mass_unit = "t", verbose = T)
 }
 \arguments{
-\item{geom}{sf object describin the geometry of each area}
+\item{geom}{sf object describing the geometry of each area}
 
 \item{values}{vector (for one variable) or list (for multiple variables) of total mass}
 
@@ -15,7 +15,7 @@ geoemiss(geom, values, variable, names = NA, mass_unit = "t", verbose = T)
 
 \item{names}{area names}
 
-\item{mass_unit}{mass unit, defoult is "t" (ton)}
+\item{mass_unit}{mass unit, default is "t" (ton)}
 
 \item{verbose}{display additional information}
 }

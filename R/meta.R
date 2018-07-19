@@ -1,6 +1,6 @@
 #' Read and write metadata
 #'
-#' @description Read and write metadata information of a NetCDF inventoty file
+#' @description Read and write metadata information of a NetCDF inventory file
 #'
 #' @param filename file name
 #' @param variable variable name, 0 to global and "?" to ask all names
