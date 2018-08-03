@@ -7,13 +7,16 @@
 possess(geoemiss, filename = NA, plots = T, verbose = T)
 }
 \arguments{
-\item{geoemiss}{an output from geoemiss}
+\item{geoemiss}{a sf from geoemiss}
 
 \item{filename}{image filename}
 
 \item{plots}{plot individual regions}
 
 \item{verbose}{display additional information}
+}
+\value{
+a sf with the area shapes and the total emission and a raster image for each area
 }
 \description{
 extract values from a image to be used on each region

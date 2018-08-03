@@ -2,7 +2,7 @@
 #'
 #' @description Create a NetCDF file from a inventory output or add new variables to an existing file
 #'
-#' @param gi an output from inventory of stacker (multiple times)
+#' @param gi a sf output from griding (or stacker)
 #' @param variable name(s) of the pollutant(s) to write
 #' @param filename name of the file
 #' @param dates date(s) for the data

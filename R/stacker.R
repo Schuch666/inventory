@@ -1,10 +1,12 @@
 #' Agroup sequencial emissions for record
 #'
-#' @description Create a stack of grinded emissions for record in a NetCDF file with multiple times (dates)
+#' @description Create a stack of multiple grinded emissions for record in a NetCDF file with multiple times (dates)
 #'
-#' @param grid list of ouputs from griding function
+#' @param grid list of sf from griding function
 #' @param variable name(s) of the pollutant(s)
 #' @param verbose display additional information
+#'
+#' @return a sf with the grid geometry and the emission by cell for multiple times
 #'
 #' @import sf
 #' @import units

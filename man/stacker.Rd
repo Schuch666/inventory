@@ -7,14 +7,17 @@
 stacker(grid, variable = NA, verbose = TRUE)
 }
 \arguments{
-\item{grid}{list of ouputs from griding function}
+\item{grid}{list of sf from griding function}
 
 \item{variable}{name(s) of the pollutant(s)}
 
 \item{verbose}{display additional information}
 }
+\value{
+a sf with the grid geometry and the emission by cell for multiple times
+}
 \description{
-Create a stack of grinded emissions for record in a NetCDF file with multiple times (dates)
+Create a stack of multiple grinded emissions for record in a NetCDF file with multiple times (dates)
 }
 \examples{
 grinded_so2 <- readRDS(paste0(system.file("extdata",package="inventory"),"/grid_so2.Rds"))

@@ -9,7 +9,7 @@ geoemiss(geom, values, variable, names = NA, mass_unit = "t", verbose = T)
 \arguments{
 \item{geom}{sf object describing the geometry of each area}
 
-\item{values}{vector (for one variable) or list (for multiple variables) of total mass}
+\item{values}{numeric vector (for one variable) or list of vectors (for multiple variables) of total mass}
 
 \item{variable}{name(s) of the pollutant(s)}
 
@@ -20,7 +20,7 @@ geoemiss(geom, values, variable, names = NA, mass_unit = "t", verbose = T)
 \item{verbose}{display additional information}
 }
 \value{
-a sfc with the area shapes and the total emission for each area
+a sf with the area shapes and the total emission for each area
 }
 \description{
 create a sf object with the emission and the geographic area which this emission

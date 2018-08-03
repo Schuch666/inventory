@@ -9,7 +9,7 @@ griding(geoemiss, variable = NA, area_unit = "km^2", res = 5,
   1e-05, verbose = T, plot = F, ...)
 }
 \arguments{
-\item{geoemiss}{a output from geoemiss}
+\item{geoemiss}{a sf from geoemiss}
 
 \item{variable}{name(s) of the pollutant(s)}
 
@@ -32,7 +32,7 @@ griding(geoemiss, variable = NA, area_unit = "km^2", res = 5,
 \item{...}{additional plot parameters}
 }
 \value{
-a sfc with the grid geometry and the emission by cell
+a sf with the grid geometry and the emission by cell
 }
 \description{
 calculate the inventory from a geoemiss ouput, there is 3 grid types:

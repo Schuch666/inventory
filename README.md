@@ -7,7 +7,7 @@ A R-package for Modeling emission inventories from geographic data.
 
 ![**Figure 1** - A global inventory.](https://raw.githubusercontent.com/Schuch666/inventory/master/global.jpg)
 
-**Figure 1** shows an example of inventory, this emission was generated with the code bellow:
+**Figure 1** shows an example of global inventory, this emission was generated with the code bellow:
 
 ```r
 # load this package
@@ -50,11 +50,11 @@ The creation of the emissions follows 3 steps process: pre-processing the input 
 
 **Figure 2** includes 3 additional prosses that can be apply to the inventory:
 
-- The use of an additional layer with a georeferenced immage to improve the distribution inside big flat areas using the `possess()` function;
-- A way to stack many times to record in one output file with the function `stacker()`;
+- The use of an additional layer with a georeferenced immage to improve the distribution inside big flat areas using the `possess()` function before the `griding()` function;
+- A way to stack many times to record in one output file with the function `stacker()` before `saveInventory()`;
 - A way to read and write metada to the final NetCDF file with the function `meta()`.
 
-**Figure 2** shows a example of local inventory for two Brazilian states (São Paulo and Rio de Janeiro) using a additional image layer of a image of the DPDT program.
+**Figure 2** shows a example of local inventory for two Brazilian states (São Paulo and Rio de Janeiro) using a additional image layer of [Images](https://ngdc.noaa.gov/eog/dmsp/downloadV4composites.html) from the Defense Meteorological Satellite Program ([DMSP](https://en.wikipedia.org/wiki/Defense_Meteorological_Satellite_Program)).
 
 ![**Figure 3** - A local inventory with image layer.](https://raw.githubusercontent.com/Schuch666/inventory/master/local.jpg)
 

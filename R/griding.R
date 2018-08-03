@@ -10,9 +10,9 @@
 #'
 #' @note inventories with multiple dates need to be combined with stacker function
 #'
-#' @return a sfc with the grid geometry and the emission by cell
+#' @return a sf with the grid geometry and the emission by cell
 #'
-#' @param geoemiss a output from geoemiss
+#' @param geoemiss a sf from geoemiss
 #' @param variable name(s) of the pollutant(s)
 #' @param area_unit area unit, default is "km^2"
 #' @param res inventory resolution in degrees
