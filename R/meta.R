@@ -53,12 +53,12 @@ meta <- function(filename = NA,variable = 0, attname = NA, action="read", value=
       if(variable == 0)
         variable <- "global"
       cat(paste0(variable," attribute ",attname,":\n"))
-      cat(ATR$value)
+      cat(paste0(ATR$value,"\n"))
     }
   }else{
     if(is.na(value))
       stop("nothing to write") # nocov
-    cat(paste("writing",value,"on attribute",attname,"of",variable,"at file",filename))
+    cat(paste("writing",value,"on attribute",attname,"of",variable,"at file",filename,"\n"))
     ncdf4::ncatt_put(meta,varid = variable,attname = attname,attval = value,verbose = verbose)
   }
   ncdf4::nc_close(meta)
