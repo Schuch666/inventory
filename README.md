@@ -43,7 +43,7 @@ plot(inventory_res_2["so2"], axes = T, pal = cpt(pal = 920,colorRampPalette = T)
 saveInventory(inventory_res_2,variable = "so2",dates = '2010-01-01',mw = 64.066)
 ```
 
-The creation of the emissions follows 3 steps process: pre-processing the input data by `geoemiss()`, generate the grid and distribute the emission by the sum of interssections of grid and regions by `grinded()`, and save the output and metadata with `saveInventory()`. **Figure 2** shows a diagram of the prosses, the circles represents input and output files, the boxes represents functions, and the gray color are used in optional steps.
+The creation of the emissions follows 3 steps process: pre-processing the input data by `geoemiss()`, generate the grid and distribute the emission by the sum of interssections of grid and regions by `griding()`, and save the output and metadata with `saveInventory()`. **Figure 2** shows a diagram of the prosses, the circles represents input and output files, the boxes represents functions, and the gray color are used in optional steps.
 
 
 ![**Figure 2** - Diagram](https://raw.githubusercontent.com/Schuch666/inventory/master/diagram.jpg)

@@ -5,8 +5,8 @@
 \title{Distribute emissions into grids}
 \usage{
 griding(geoemiss, variable = NA, area_unit = "km^2", res = 5,
-  type = "global", lat = c(-90, 90), lon = c(-180, 180), tol = res *
-  1e-05, verbose = T, plot = F, ...)
+  type = "global", lat = c(-90, 90), lon = c(-180, 180), tol = res
+  * 1e-05, verbose = T, plot = F, ...)
 }
 \arguments{
 \item{geoemiss}{a sf from geoemiss}
