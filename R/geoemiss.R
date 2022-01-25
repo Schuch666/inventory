@@ -65,8 +65,8 @@ geoemiss <- function(geom, values, variable, names = NA, mass_unit = "t", verbos
     }else{
       values_n <- as.numeric(values)
     }
-    units(values_n) <- with(units::ud_units,mass_unit)
-    df    <- cbind(df, values_n)
+    values_n <- units::set_units(values_n,mass_unit,mode = "standard")
+    df       <- cbind(df, values_n)
   }
   df    <- st_sf(df,geometry = sf::st_geometry(geom))
 

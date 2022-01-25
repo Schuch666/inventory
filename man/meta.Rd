@@ -4,8 +4,14 @@
 \alias{meta}
 \title{Read and write metadata}
 \usage{
-meta(filename = NA, variable = 0, attname = NA, action = "read",
-  value = NA, verbose = F)
+meta(
+  filename = NA,
+  variable = 0,
+  attname = NA,
+  action = "read",
+  value = NA,
+  verbose = F
+)
 }
 \arguments{
 \item{filename}{file name}

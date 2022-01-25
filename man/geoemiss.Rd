@@ -4,8 +4,7 @@
 \alias{geoemiss}
 \title{Gather data for calculate the inventory}
 \usage{
-geoemiss(geom, values, variable, names = NA, mass_unit = "t",
-  verbose = T)
+geoemiss(geom, values, variable, names = NA, mass_unit = "t", verbose = T)
 }
 \arguments{
 \item{geom}{sf object describing the geometry of each area}

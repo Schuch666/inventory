@@ -13,11 +13,11 @@ Authors@R: c(
 Maintainer: Daniel Schuch <schuch@usp.br>
 Description: Tools to create NetCDF-4 emissions inventories from global to local scale.
 Depends: R (>= 3.4)
-Imports: sf, ncdf4, units(>= 0.5-1), raster, lwgeom, rgdal
-Suggests: testthat, covr
+Imports: sf, ncdf4, units(>= 0.5-1), raster, lwgeom
+Suggests: testthat, covr, rgdal
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: false
-RoxygenNote: 6.1.1
+RoxygenNote: 7.1.2
 URL: https://schuch666.github.io/inventory
 BugReports: https://github.com/Schuch666/inventory/issues

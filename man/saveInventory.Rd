@@ -4,8 +4,18 @@
 \alias{saveInventory}
 \title{Save the inventory in NetCDF format}
 \usage{
-saveInventory(gi, filename = NA, dates, variable, unit = NA, mw = 1,
-  time_unit = "year", COMPRESS = NA, force_ncdf4 = F, verbose = T)
+saveInventory(
+  gi,
+  filename = NA,
+  dates,
+  variable,
+  unit = NA,
+  mw = 1,
+  time_unit = "year",
+  COMPRESS = NA,
+  force_ncdf4 = F,
+  verbose = T
+)
 }
 \arguments{
 \item{gi}{a sf output from griding (or stacker)}
